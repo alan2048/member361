@@ -179,7 +179,7 @@ function initAjax(url,param,callback,callback01) {
             },
             error:function(result){
                 console.log("请求失败 error!000");
-                // window.location.href=httpUrl.loginHttp;
+                window.location.href=httpUrl.loginHttp;
             }
         });	
 };
