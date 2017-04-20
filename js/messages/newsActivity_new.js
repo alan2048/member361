@@ -12,6 +12,7 @@ function loginSuccess() {
         var aa=$(".textbox-invalid").length;
         if(aa==0){
             AddNotify2Info_port();
+            $(this).off();
         }else{
             alert('请先将红色区域的必填项补充完成。。')
         }
