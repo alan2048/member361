@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+	<title>成长档案</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" href="../favicon.png">
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+    <link href="../../plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	
+    <link href="../../css/common/jquery.toast.min.css" rel="stylesheet" />
+    <link href="../../css/interaction/recordList.css" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	<script src="../../js/common/vue.js"></script>
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class"></i>班级页面<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown" id="changeClass">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class" id="classid" data-classid="">{{classItems.curClass}}</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}" data-classid="{{item.id}}" data-name="{{item.name}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img v-bind:src="curUser.portraitId" alt="" /> 
+							<span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="{{logoutHttp}}">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">成长档案</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">成长档案&nbsp;&nbsp;<small>学生列表</small></h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row">
+			    <!-- begin col-12 -->
+			    <div class="col-md-12">
+                
+                	<!-- begin 搜索板块 -->
+                    <div class="result-container">
+			            <div class="input-group m-b-20">
+                            <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
+                            	<div id="data-table_length" class="dataTables_length">
+      								<label style="margin-bottom:3px">年份：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="year01"></select>
+                                        <script type="text/html" id="year_script">
+                                            {{each year as value i}}
+                                            <option value="{{value}}">{{value}}年</option>
+                                            {{/each}}
+                                        </script>
+      								</label>
+      								<label style="margin-bottom:3px">月份：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="month01"></select>
+    									<script type="text/html" id="month_script">
+    										{{each month as value i}}
+											<option value="{{value}}">{{value}}月</option>
+    										{{/each}}
+    									</script>
+      								</label>
+                                    <a class="newInfo" href="../../../memberRecord/Instructions.html" target="_blank">新版成长档案功能介绍</a>
+    							</div>
+                            </div>
+                            <div class="input-group-btn">
+                                <button id="btn01" type="button" class="btn btn-inverse" style="padding-top:10px; padding-bottom:10px"><i class="fa fa-search"></i> 查询</button>
+                            </div>
+                        </div>   
+                	</div>
+                	<!-- end 搜索板块 -->
+
+                	<div>
+						<ul id="members"></ul>
+						<script type="text/html" id="members_script">
+							{{each data as value i}}
+							<li>
+								<a class="membersBg" data-useruuid="{{value.userUuid}}" style="background-image: url({{value.userPic}});" href="#modal-dialog-qunzu" data-toggle="modal">
+									<div class="firstArea">
+                                        <span class="recordList" data-useruuid="{{value.userUuid}}" data-username="{{value.userName}}" data-value="{{value.value}}"></span>
+                                        <span class="addBtn" data-useruuid="{{value.userUuid}}" data-needcreate="{{value.needCreate}}" data-value="{{value.value}}"></span>
+                                    </div>
+                                    <div class="secondArea">
+										<span class="icon01">{{value.studentNum}}</span>
+										{{if value.teacherNum==0}}
+										<span class="icon02 redBtn" >{{value.teacherNum}}</span>
+										{{else}}
+										<span class="icon0201">{{value.teacherNum}}</span>
+										{{/if}}
+									</div>
+								</a>
+								<div class="membersTitle">{{value.userName}}</div>
+							</li>
+							{{/each}}
+						</script>
+                	</div>
+                	<div style="clear:both;"></div>
+            	</div>
+			</div>
+        </div>
+
+
+
+        <div id="content01" class="content hide01">
+            <h1 class="page-header">成长档案&nbsp;&nbsp;<small></small></h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <ul id="yearRecord"></ul>
+                        <script type="text/html" id="yearRecord_script">
+                            {{each data as value i}}
+                            <li>
+                                <div class="yearBg" style="background-image: url({{value.imgUrl}});">
+                                    <span class="lookBtn" data-danbookid="{{value.id}}" data-name="{{value.name}}" data-value="{{value.value}}"></span>
+                                    <span class="downBtn" data-danbookid="{{value.id}}" data-picMd5List="{{value.picMd5List}}" data-bookname="{{value.name}}"></span>
+                                </div>
+                                <div class="yearTitle" data-danbookid="{{value.id}}">
+                                    <span class="current">{{value.name}}</span><input type="text" value="{{value.name}}" data-danbookid="{{value.id}}">
+                                </div>
+                            </li>
+                            {{/each}}
+                        </script>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content02" class="content hide01">
+            <h1 class="page-header"><span></span>&nbsp;&nbsp;<small></small></h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <ul id="monthRecord"></ul>
+                        <script type="text/html" id="monthRecord_script">
+                            {{each data as value i}}
+                            <li>
+                                <div class="monthTitle">
+                                    <div>{{value.month}}月</div>
+                                    <span>{{value.number}}页</span>
+                                </div>
+                                <div class="monthBg" style="background-image: url({{value.coverMd5}});">
+                                    <span class="lookBtn" data-picMd5List="{{value.picMd5List}}"></span>
+                                    <span class="downBtn" data-picMd5List="{{value.picMd5List}}"></span>
+                                    <span class="editBtn" data-month="{{value.month}}" data-value="{{value.value}}"></span>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </script>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div>
+		
+        <a href="javascript:;" id="backBtn" class="hide01" >
+            <span>返回上一层级</span>
+        </a>
+		
+	</div>
+
+    <div class="modal fade" id="modal-dialog-img" tabindex="0">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="carousel_img">
+                    <div class="carousel-inner"></div>
+                    <a class="left carousel-control prev" href="#">
+                        <span class="glyphicon-left"></span>
+                    </a>
+                    <a class="right carousel-control next" href="#">
+                        <span class="glyphicon-right"></span>
+                    </a>
+                </div>
+                <script type="text/html" id="carousel_img_script">
+                    {{each data as value i}}
+                    {{if i == 0}}
+                    <div class="item active">
+                        <img src="{{value}}">
+                    </div>
+                    {{else}}
+                    <div class="item">
+                        <img src="{{value}}">
+                    </div>
+                    {{/if}}
+                    {{/each}}
+                </script>
+            </div>
+        </div>
+        <span class="closeBtn" data-dismiss="modal"></span>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        请新建档案名称
+                    </h4>
+            </div>
+                <div class="modal-body">
+                    <label><span>档案名称：</span><input type="text" id="bookName" placeholder="请输入档案册名称"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="finalBtn">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+	<!-- end page container -->
+
+    <form action="" id="filesDown" method="POST" style="display: none;">
+        <input type="hidden" name="loginId" value="">
+        <input type="hidden" name="fileName" value="201701">
+        <input type="hidden" name="fileMd5List" value="201701">
+        <input type="submit">
+    </form>
+
+	<script src="../../plugins/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+	<script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	<script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	<script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+  	<script src="../../js/apps.js"></script>
+	<script src="../../js/common/base.js" ></script>
+	<script src="../../js/template.js" ></script>
+	<script src="../../js/common/simplePagination.js" ></script>
+    <script src="../../js/common/dropzone.min.js" ></script><!-- 上传插件 -->
+    <script src="../../js/common/jquery.toast.min.js"></script><!-- 消息提示插件 -->
+    <script src="../../js/common/jquery.nicescroll.min.js"></script>
+    <script src="../../js/interaction/recordList.js"></script>
+
+</body>
+</html>

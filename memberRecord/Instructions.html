@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html style="overflow: hidden; height: 100%;" lang="zh-CN"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>新版成长档案功能介绍</title>
+<link rel="stylesheet" href="css/jquery.fullPage.css">
+<style>
+#menu { margin: 0; padding: 0; position: fixed; left: 10px; top: 10px; list-style-type: none; z-index: 70;}
+#menu li { float: left; margin:  0 10px 0 0; font-size: 14px;}
+#menu a { float: left; padding: 10px 20px; background-color: #fff; color: #333; text-decoration: none;}
+#menu .active a { color: #fff; background-color: #333;}
+.active a { color: #fff; background-color: #333;}
+.section { text-align: center; font: 50px "Microsoft Yahei"; color: #fff;}
+.section .tableCell img{
+	width: 100%;
+}
+
+#nav01 {
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: #ef3a7a;
+	font-size: 16px;
+	top:0;
+	background-color: rgba(0,0,0,0.1);
+}
+#nav01 a {
+	color: #ef3a7a;
+	font-size: 18px;
+	margin: 0 20px;
+}
+
+</style>
+<script src="js/jquery-1.11.1.min.js" charset="utf-8"></script>
+<script src="js/jquery-ui-1.10.3.min.js" charset="utf-8"></script>
+<script src="js/jquery.fullPage.min.js" charset="utf-8"></script>
+<script>
+
+$(document).ready(function() {
+
+	$.fn.fullpage({
+		slidesColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', '#f90', '#1bbc9b', '#4BBFC3', '#7BAABE'],
+		anchors: ['page1', 'page2', 'page3', 'page4', 'page5', 'page6', 'page7'],
+		navigation: true
+	});
+
+});
+
+</script>
+
+</head>
+
+
+
+<body style="overflow: hidden; height: 100%; font-size: 80.61%;">
+<div id="nav01">
+	<a href="instructions-mengbao.doc">新版成长档案操作手册下载</a>
+	<a href="#">联系电话：31316233</a>
+</div>
+
+
+<div id="superContainer" style="top: 0px;">
+
+
+<div class="section table active" style="height: 665px; background-color: rgb(27, 188, 155);" data-anchor="page1">
+	<div class="tableCell" style="height: 665px;">
+		<img src="images/instructions/1.jpg" alt="">
+	</div>
+</div>
+
+<div class="section table" style="height: 665px; background-color: rgb(75, 191, 195);" data-anchor="page2">
+	<div class="tableCell" style="height: 665px;">
+		<img src="images/instructions/2.jpg" alt="">
+	</div>
+</div>
+
+<div class="section table" style="height: 665px; background-color: rgb(123, 170, 190);" data-anchor="page3">
+	<div class="tableCell" style="height: 665px;">
+		<img src="images/instructions/3.jpg" alt="">
+	</div>
+</div>
+
+<div class="section table" style="height: 665px; background-color: rgb(255, 153, 0);" data-anchor="page4">
+	<div class="tableCell" style="height: 665px;">
+		<img src="images/instructions/4.jpg" alt="">
+	</div>
+</div>
+
+<div class="section table" style="height: 665px; background-color: rgb(255, 153, 0);" data-anchor="page5">
+	<div class="tableCell" style="height: 665px;">
+		<img src="images/instructions/5.jpg" alt="">
+	</div>
+</div>
+
+<div class="section table" style="height: 665px; background-color: rgb(255, 153, 0);" data-anchor="page6">
+	<div class="tableCell" style="height: 665px;">
+		<img src="images/instructions/6.jpg" alt="">
+	</div>
+</div>
+
+<div class="section table" style="height: 665px; background-color: rgb(255, 153, 0);" data-anchor="page7">
+	<div class="tableCell" style="height: 665px;">
+		<img src="images/instructions/7.jpg" alt="">
+	</div>
+</div>
+
+</div>
+
+<div id="fullPage-nav" style="color: rgb(0, 0, 0); margin-top: -43.5px;" class="right">
+<ul>
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+#measureTable ul,#measureTable li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#measureTable .measureheader {
+	border: 1px solid #e2e7eb;
+	height: 35px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #f5f8fa;
+	line-height: 32px;
+	padding: 0 15px;
+	color: #707478;
+}
+#measureTable .measurebody label {
+	display: block;
+	padding: 0 15px;
+	height: 30px;
+	line-height: 30px;
+}

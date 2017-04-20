@@ -1,0 +1,258 @@
+ul,li{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.navbar{
+	z-index: 1;
+}
+.sidebar{
+	z-index: 0;
+}
+.input-group .form-control{
+	z-index: 0;
+}
+.m-b-20{
+	margin-bottom: 0 !important;
+}
+#members >li{
+	width:114px;
+	height: 150px;
+	margin-top: 24px;
+	margin-right: 40px;
+	float: left;
+}
+#members >li >.membersTitle{
+	text-align: center;
+	line-height: 36px;
+}
+#members >li >.membersBg{
+	display: block;
+	cursor: pointer;
+	width: 114px;
+	height: 114px;
+	border-radius: 16px;
+	overflow: hidden;
+	background-image: url(../../img/teaching/showImg.png);
+	background-size: 100%;
+}
+#members >li >.membersBg >div{
+	text-align: center;
+	line-height: 32px;
+	margin-top: 82px;
+	height: 32px;
+	background-color: rgba(20,20,20,0.5);
+}
+#members >li >.membersBg .icon01{
+	display: inline-block;
+	min-width: 20px;
+	min-height: 20px;
+	padding-left: 24px;
+	padding-right: 10px;
+	background:  url(../../img/teaching/list01.png) 0 center no-repeat;
+	color: #fff;
+}
+#members >li >.membersBg .icon02{
+	display: inline-block;
+	min-width: 20px;
+	min-height: 20px;
+	padding-left: 26px;
+	color: #fff;
+	background:  url(../../img/teaching/list02.png) 0 center no-repeat;
+}
+#members >li >.membersBg .icon02.redBtn{
+	color: #cb3f3f;
+}
+
+
+#modal-dialog-qunzu .modal-dialog{
+	width: 88%;
+	height: 80%;
+	margin: 90px auto;
+}
+#modal-dialog-qunzu .modal-content{
+	height: 100%;
+	background-color: #d9e0e7;
+}
+.table > tbody > tr > td{
+	border-bottom: 1px solid #ddd;
+	border-top: none;
+}
+.pagination{
+	margin: 10px 0 20px;
+}
+#modal-dialog-qunzu .first-content {
+	padding: 26px 26px 0 26px;
+	overflow-y: auto;
+	height: 100%;
+	background-color: #ebf5f8;
+}
+#modal-dialog-qunzu .second-content {
+	padding: 0;
+	background-color: #fff;
+	height: 100%;
+	overflow-y: auto;
+}
+#page-header span{
+	font-size: 12px;
+	color: #fff;
+	background-color: #13b5dd;
+	border-radius: 5px;
+	padding: 2px 8px;
+}
+.email-btn-row >span{
+	font-size: 12px;
+	padding-left: 20px;
+	float: right;
+	background: url(../../img/teaching/delete.png) no-repeat 0 center;
+	line-height: 50px;
+}
+.email-btn-row {
+	margin-bottom: 10px;
+}
+.closeBtn {
+	display: inline-block;
+	cursor: pointer;
+	width: 50px;
+	height: 50px;
+	background: url(../../img/teaching/closeBtn.png) no-repeat center center;
+	position: absolute;
+	top: -26px;
+	right: -30px;
+}
+#email-content tbody tr{
+	cursor: pointer;
+}
+#second-content .panel {
+	width: 100%;
+	height: 100%;
+	margin-bottom: 0;
+}
+#second-content .panel-body {
+	background-color: #fff;
+	position: relative;
+	z-index: 0;
+	background: url(../../img/teaching/dimBg.png) no-repeat center center;
+	height: 100%;
+}
+#second-content .panel-body .col-md-12{
+	background-color: #fff;
+}
+.dimBg{
+	position: absolute;
+	top:0;
+}
+.unRead {
+	background: url(../../img/teaching/delete.png) no-repeat center center;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+#carousel img {
+	cursor: pointer;
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	border-radius: 10px;
+	overflow: hidden;
+}
+#carousel a {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	border: 2px solid #fff;
+	width: 122px;
+	height: 122px;
+	background-color: #cacbcc;
+	color: #fff;
+	border-radius: 10px !important;
+	position: relative;
+	text-align: center;
+}
+.deleteBtn {
+	position: absolute;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url(../../img/teaching/deleteBtn.png) center center no-repeat;
+	top: -10px;
+	right: -10px;
+	cursor: pointer;
+	display: none;
+	z-index: 10;
+}
+#carousel a > p {
+	margin-top: 88px;
+}
+.dz-preview{
+	display: none;
+}
+.deleteBtn.current{
+	display: inline-block;
+}
+#carousel a:hover {
+	border: 2px solid #13b5dd; 
+}
+#imgBg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 88888;
+	top: 0;
+	background-color: rgba(8,8,8,0.6);
+	display: none;
+}
+#imgBg.current{
+	display: block;
+}
+@media (min-height: 100px){
+	#modal-dialog-img .modal-dialog {
+		width: 250px;
+		margin: 90px auto;
+	}
+}
+@media (min-height: 500px){
+	#modal-dialog-img .modal-dialog {
+		width: 450px;
+		margin: 90px auto;
+	}
+}
+@media (min-height: 900px){
+	#modal-dialog-img .modal-dialog {
+		width: 550px;
+		margin: 90px auto;
+	}
+}
+#carousel_img {
+	text-align: center;
+	height: 100%;
+	padding: 2%;
+	vertical-align:middle;
+}
+#carousel_img img {
+	max-height: 100%;
+	max-width: 100%;
+	vertical-align:middle;
+}
+#successInfo{
+	color: #55f50f;
+}
+#addPicBtn{
+	background: url(../../img/teaching/addBtn.png) center center no-repeat;
+}
+.jq-icon-success{
+	background-color: #13b5dd !important;
+	color: #fff !important;
+}
+.modal-open .modal {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+#modal-dialog-qunzu {
+	position: relative;
+	height: 600px;
+	background-color: #fff;
+	margin-top: 12px;
+	border-radius: 5px;
+	overflow: hidden;
+}

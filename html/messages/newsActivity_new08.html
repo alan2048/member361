@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>保健之窗 新建</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+    <link rel="shortcut icon" href="../favicon.png">
+
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+	<link href="../../css/messages/schoolActivity_new.css" rel="stylesheet" />
+
+	<script src="../../js/common/vue.js"></script>
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+        <div id="header" class="header navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+                    <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form full-width">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter keyword" />
+                                <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+                            <i class="header-class"></i>班级页面<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+                            <i class="header-class" id="classid" data-classid={{classItems.curClassId}}>{{classItems.curClass}}</i> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown navbar-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                            <img v-bind:src="curUser.portraitId" alt="" /> 
+                            <span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInLeft">
+                            <li class="arrow"></li>
+                            <li><a href="javascript:;">学校管理</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{logoutHttp}}">注销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">保健之窗 新建</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">保健之窗&nbsp;&nbsp;<small>新建</small></h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row">
+			    <div class="col-md-12">
+                    <div class="panel panel-inverse">
+                    	<div class="panel-body">
+                        	<div class="alert alert-warning fade in m-b-15">
+								您的请求已完成，
+								<span style="color:#ff0000">“ * ”</span>为必填项。
+								<span class="close" data-dismiss="alert"></span>
+							</div>
+                            <form class="form-horizontal">
+                            	<div class="col-md-8">
+                            		<div class="form-group">
+                                    	<label class="col-md-3 control-label">
+                                    		<span style="color:#ff0000">*</span> 选择通知群组
+                                    	</label>
+                                    	<div class="col-md-9">
+                                            <a href="#modal-dialog-qunzu" data-toggle="modal" class="form-control" id="allClassBtn">未选择</a>
+                                        </div>
+                                	</div>
+                                    <!-- #modal-dialog -->
+                                    <div class="modal fade" id="modal-dialog-qunzu">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">                                     
+                                                <div class="col-md-6" style="width:100%; margin-top:15px;">
+                                                    <ul class="nav nav-pills">
+                                                        <li class="active">
+                                                            <a href="#nav-pills-tab-1" data-toggle="tab">按部门发送</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content" style="border:1px solid #e2e7eb; padding-bottom:0px;">
+                                                        <div class="tab-pane fade active in" id="nav-pills-tab-1">
+                                                            <table class="table">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="width:30%; padding:0px; border-top:0px;">
+                                                                            <div class="col-md-6" style=" width:100%; min-height:240px; border-right:1px solid #e2e7eb">    
+                                                                                <ul class="nav nav-tabs" style="background:none" id="allClass">
+                                                                                </ul>
+                                                                                <script type="text/html" id="allClass_script">
+                                                                                    {{each data as value i}}
+                                                                                    <li style="width:100%">
+                                                                                        <a href="#default-tab-{{i+1}}" data-toggle="tab" style="float:left; width:88%" data-orgid="{{value.orgId}}" data-tab="{{i+1}}">{{value.orgName}}</a>
+                                                                                        <input value="" type="checkbox" style="float:right; margin-top:-25px;" data-orgid="{{value.orgId}}" data-tab="{{i+1}}">
+                                                                                    </li>
+                                                                                    {{/each}}
+                                                                                </script>
+                                                                                <script type="text/html" id="allClassTab_script">
+                                                                                    {{each data as value i}}
+                                                                                        {{if i==0}}
+                                                                                        <div class="tab-pane fade active in" id="default-tab-{{i+1}}" data-orgid="{{value.orgId}}"></div>
+                                                                                        {{/if}}
+                                                                                        {{if i!=0}}
+                                                                                        <div class="tab-pane fade" id="default-tab-{{i+1}}" data-orgid="{{value.orgId}}"></div>
+                                                                                        {{/if}}
+                                                                                    {{/each}}
+                                                                                </script>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="width:70%; padding:0px; border-top:0px;">
+                                                                            <div class="col-md-6" style="width:100%; padding-left:0px; padding-right:0px; background:none;">
+                                                                                <div class="tab-content" style="padding-right:0px" id="classMember">
+                                                                                </div>
+                                                                                <script type="text/html" id="classMember_script">
+                                                                                        {{each data as value i}}
+                                                                                        <label class="checkbox-inline" style="margin: 0 10px;width: 80px;">
+                                                                                            <input value="{{value.id}}" data-id="{{value.id}}" data-portrait="{{value.portrait}}" type="checkbox" >{{value.userName}}
+                                                                                        </label>
+                                                                                        {{/each}}
+                                                                                </script>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="clear:both"></div>
+                                                <div class="modal-footer">
+                                                    <label style="float:left">         
+                                                        <input value="" type="checkbox" id="chooseAll"> 全选
+                                                    </label>
+                                                    <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">取消</a>
+                                                    <a href="javascript:;" class="btn btn-sm btn-success" data-dismiss="modal" id="chooseMemberBtn">确定</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                	<div class="form-group">
+                                    	<label class="col-md-3 control-label ui-sortable"><span style="color:#ff0000">*</span> 标题</label>
+                                    	<div class="col-md-9 ui-sortable">
+                                        	<input class="form-control" placeholder=" " type="text" id="activityTitle">
+                                    	</div>
+                                	</div>
+                                	<div class="form-group">
+                                    	<label class="col-md-3 control-label ui-sortable"><span style="color:#ff0000">*</span> 封面</label>
+                                    	<div class="col-md-9 ui-sortable">
+                                        	<div class="faceimage"><img src="../../img/ywglImg3.jpg" alt="" id="activityPicture" data-md5=""/></div>
+                                    	</div>
+                                	</div>
+                                	<div class="form-group">
+                                    	<label class="col-md-3 control-label ui-sortable"> 外链</label>
+                                    	<div class="col-md-9 ui-sortable">
+                                        	<input class="form-control" placeholder=" " type="text" id="activityLink">
+                                    	</div>
+                                	</div>
+                                	<div class="form-group">
+                                    	<label class="col-md-3 control-label ui-sortable"> 摘要</label>
+                                    	<div class="col-md-9 ui-sortable">
+                                        	<textarea class="form-control" placeholder="（您还可以输入120个文字）" rows="5" id="activitySummary"></textarea>
+                                    	</div>
+                                	</div>
+                                	<div class="form-group">
+                                    	<label class="col-md-3 control-label ui-sortable"> 内容</label>
+                                    	<div class="col-md-9 ui-sortable">
+                                        	<script id="editor" type="text/plain" style="width:100%; height:307px;"></script>
+                                    	</div>
+                                	</div>
+                                	<div class="form-group">
+                                    	<label class="col-md-3 control-label ui-sortable"></label>
+                                    	<div class="col-md-9 ui-sortable">
+                                        	<div id="finalBtn" type="submit" class="btn btn-sm btn-success">保存并发送</div>
+                                    	</div>
+                                	</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            	</div>
+			</div>
+        </div>
+		<!-- end #content -->
+		
+	</div>
+	<!-- end page container -->
+	
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="../../plugins/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+    <script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+    <script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+    <script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    
+    <!-- ================== START ueditor JS ================== -->
+    <script type="text/javascript" charset="utf-8" src="../../plugins/utf8-jsp/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../plugins/utf8-jsp/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="../../plugins/utf8-jsp/lang/zh-cn/zh-cn.js"></script> <!-- UE中文配置文件 -->
+    <script src="../../js/messages/ue.config.js"></script>
+    <!-- ================== end ueditor JS ================== -->
+
+    <script src="../../js/apps.js"></script>
+    <script src="../../js/common/dropzone.min.js" ></script>
+    <script src="../../js/common/base.js" ></script>
+    <script src="../../js/template.js" ></script>
+	<script src="../../js/messages/newsActivity_new08.js"></script>
+</body>
+</html>

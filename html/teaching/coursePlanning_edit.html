@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>课程计划 编辑</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" href="../favicon.png">
+	
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+
+	<link href="../../plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="../../plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+    <link href="../../js/common/jsmind/jsmind.css" rel="stylesheet">
+    <link href="../../plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+    <link href="../../css/teaching/coursePlanning_new.css" rel="stylesheet">
+
+    <script src="../../js/common/vue.js"></script>
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class"></i>班级页面<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class" id="classid" data-classid={{classItems.curClassId}}>{{classItems.curClass}}</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img v-bind:src="curUser.portraitId" alt="" /> 
+							<span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="{{logoutHttp}}">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+
+
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">课程计划 新建</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">预设计划&nbsp;&nbsp;<small>新建 课程计划</small></h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row">
+			    <!-- begin col-12 -->
+			    <div class="col-md-12">
+                    <!--begin panel -->
+                    <div class="panel panel-inverse">
+                    <div class="panel-body">
+                        
+                        <div class="col-md-8">
+                        <!--begin 基本信息 -->
+                        <div class="col-md-12 ui-sortable basebox">
+                        	<div class="col-md-6 ui-sortable">
+                        		<div class="form-group">
+                            		<label class="col-md-3 control-label ui-sortable">计划名称</label>
+                            		<div class="col-md-9 ui-sortable">
+                            			<input id="planName" class="form-control" placeholder=" " type="text" style="margin-bottom:12px">
+                            		</div>
+                            	</div>
+                            	<div class="form-group">
+                            		<label class="col-md-3 control-label ui-sortable">观察目标</label>
+                            		<div class="col-md-9 ui-sortable">
+                            			<textarea id="planTarget" class="form-control" placeholder="" rows="2" style="margin-bottom:12px"></textarea>
+                            		</div>
+                            	</div>
+                            	<div class="form-group">
+                            		<label class="col-md-3 control-label ui-sortable">观察难点</label>
+                            		<div class="col-md-9 ui-sortable">
+                            			<textarea id="planDiffpoint" class="form-control" placeholder="" rows="2"></textarea>
+                            		</div>
+                            	</div>
+                        	</div>
+                        	<div class="col-md-6 ui-sortable">
+                        		<div class="form-group">
+                            		<label class="col-md-3 control-label ui-sortable">计划周期</label>
+                            		<div class="col-md-9 ui-sortable">
+                            			<div class="input-group input-daterange" style="float:left;margin-bottom:12px">
+                            				<input id="planBegintime" data-date-format="yyyy-mm-dd" class="form-control" name="start" placeholder="开始日期" type="text">
+                            				<span class="input-group-addon">至</span>
+                            				<input id="planEndtime" class="form-control" name="end" placeholder="结束日期" type="text">
+                            			</div>
+                            		</div>
+                        		</div>
+                            	<div class="form-group">
+                            		<label class="col-md-3 control-label ui-sortable">观察重点</label>
+                            		<div class="col-md-9 ui-sortable">
+                            			<textarea id="planKeypoint" class="form-control" placeholder="" rows="2" style="margin-bottom:12px"></textarea>
+                            		</div>
+                            	</div>
+                            	<div class="form-group">
+                            		<label class="col-md-3 control-label ui-sortable">观察准备</label>
+                            		<div class="col-md-9 ui-sortable">
+                            			<textarea id="planPrepare" class="form-control" placeholder="" rows="2"></textarea>
+                            		</div>
+                            	</div>
+                        	</div>
+                        </div>
+                        </div>
+                        <!--end 基本信息 -->
+
+                        <!-- 维度能力 -->
+                        <div class="col-md-12" id="jsmind">
+                        	<h4 class="baseTitle">维度能力</h4>
+                        	<div class="col-md-12" style="border:1px solid #e2e7eb; padding:0px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;">
+                        		<div class="panel-body" style="padding:15px 8px 15px 25px">
+									<div id="jsmind_container" class="watchDimensions" style="width:100%;height:500px!important;"">
+									</div>
+                        		</div>
+                        	</div>
+                        </div>
+
+                        <!-- 维度能力 -->
+                        <div class="col-md-12" id='aboutTeacher'>
+                        	<h4 class="baseTitle">关联教师</h4>
+                        	<div class="col-md-12" style="border:1px solid #e2e7eb; padding:0px; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px;">
+                        		<div class="panel-body" style="padding:15px 8px 15px 25px">
+									<div class="aboutTeacher" data-scrollbar="true" style="height:228px!important;">
+                            			<span v-for="item in lists" class="teacherList">
+                            				<label>
+                            					<i class="fa fa-square-o fa-fw" data-id={{item.id}} data-portrait={{item.portrait}} data-useruuid={{item.useruuid}} v-on:click="iclick($event)"></i>
+												<span v-on:click="spanclick($event)">{{item.userName}}</span>
+                            				</label>
+										</span>
+									</div>
+								</div>
+                        	</div>
+                        </div>
+                        
+                        <div class="form-group pull-right">
+                    		<div class="col-md-12 ui-sortable">
+                        		<button type="submit" class="btn btn-sm btn-success finalbtn" id="finalBtn">完成</button>
+                    		</div>
+						</div>
+
+					</div>
+                    </div>
+                    <!-- end panel -->
+                    
+            	</div>
+                <!-- end col-12 -->
+                 
+			</div>
+        	<!-- end row -->
+        </div>
+		<!-- end #content -->
+		
+		<!-- begin scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div> 
+    
+    <!-- <div id="gritter-notice-wrapper">
+  		<div id="gritter-item-1" class="gritter-item-wrapper my-sticky-class" style="" role="alert">
+    		<div class="gritter-item"><a href="#"><i class="fa fa-plus fa-3x"></i><br><span>添加环节模块</span></a>
+        		<div style="clear:both"></div>
+        	</div>
+  		</div>
+	</div> -->
+
+
+    
+	<!-- end page container -->
+	<script src="../../js/jquery-1.11.1.min.js"></script>
+	<!-- ================== BEGIN BASE JS ================== -->
+	
+	  <script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	 <script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	 <script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	 <script src="../../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+     <script src="../../plugins/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+     <script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+     <script src="../../plugins/masked-input/masked-input.js"></script>
+
+     <script src="../../plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+     <script src="../../plugins/password-indicator/js/password-indicator.js"></script>
+     <script src="../../plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+     <script src="../../plugins/bootstrap-select/bootstrap-select.js"></script>
+     <script src="../../plugins/jquery-tagit/js/tag-it.min.js"></script>
+     <script src="../../js/form-plugins.js"></script>
+	 <script src="../../js/dashboard.js"></script>
+	 <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+  	
+	<script>
+		$(document).ready(function() {
+			FormPlugins.init();
+		});
+	</script>
+	
+	<script src="../../js/apps.js"></script>
+	<script src="../../js/common/base.js" ></script>
+	<script src="../../js/common/jsmind/jsmind.js"></script>
+	<script src="../../js/common/simplePagination.js" ></script>
+	<script src="../../js/teaching/coursePlanning_edit.js"></script>
+
+</body>
+</html>

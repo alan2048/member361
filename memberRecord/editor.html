@@ -1,0 +1,123 @@
+
+	<div id="editor-bar" class="editorBar" style="left: 120px; top: 180px; display: none;" data-direction="right">
+		<div class="barContent">
+			<p id="colorBtn" class="editor-tool-button" style="display: block;">
+				<span id="colorDiv"><i><span style="background: rgb(243, 241, 231) none repeat scroll 0% 0%;"></span></i></span>
+				<span class="editor-tool-button-tip left-tip" style="left: -56px;">颜色</span>
+			</p>
+			<p id="colorPanel" class="editor-tool-button" style="display: none;">
+				<input type="color">
+			</p>
+			<p id="fontBtn" class="editor-tool-button" style="display: block;">
+				<i class="bar-icon-18"></i><span class="editor-tool-button-tip left-tip" style="left: -56px;">字体</span>
+			</p>
+			<p id="layerBtn" class="editor-tool-button" style="display: block;">
+				<i class="bar-icon-18"></i><span class="editor-tool-button-tip left-tip" style="left: -56px;">图层</span>
+			</p>
+			<p id="deleteBtn" class="editor-tool-button" style="display: block;">
+				<i class="bar-icon-18"></i><span class="editor-tool-button-tip left-tip" style="left: -56px;">删除</span>
+			</p>
+		</div>
+	</div>
+
+	<div id="layerPanel" class="editorPanel popover layerPanel right" style="left:165px; top: 170px; display: none;">
+		<div class="arrow" style="top: 31.3302px;"></div>
+		<div class="popover-content">
+			<div class="panelContent">
+				<div id="rotateTitleText" class="fotorPanel-title">图层</div>
+				<div class="fotorPanel-btns clearfix">
+					<div class="fotorPanel-btn">
+						<span id="layerUpBtn" class="bar-icon-18 layerUpBtn"></span>
+					</div>
+					<div class="fotorPanel-btn">
+						<span id="layerDownBtn" class="bar-icon-18 layerDownBtn"></span>
+					</div>
+					<div class="fotorPanel-btn">
+						<span id="layerTopBtn" class="bar-icon-18 layerTopBtn"></span>
+					</div>
+					<div class="fotorPanel-btn">
+						<span id="layerBottomBtn" class="bar-icon-18 layerBottomBtn"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="fontPanel" class="editorPanel popover right fontPanel" style="display: none;">
+		<div class="arrow"></div>
+		<div class="popover-content">
+			<div class="panelContent">
+				<div id="fontPanel-bar" class="clearfix ">
+					<span id="fontLeftBtn" class="editor-text-button bar-icon-18 fontLeftBtn"></span>
+					<span id="fontCenterBtn" class="editor-text-button bar-icon-18 fontCenterBtn"></span>
+					<span id="fontRightBtn" class="editor-text-button bar-icon-18 fontRightBtn"></span>
+					<span id="fontBoldBtn" class="editor-text-button bar-icon-18 fontBoldBtn"></span>
+					<span id="fontItalicBtn" class="editor-text-button bar-icon-18 fontItalicBtn"></span>
+					<span id="fontUnderlineBtn" class="editor-text-button bar-icon-18 fontUnderlineBtn"></span>
+				</div>
+				<div id="fontNameDropdown" class="select marginT10 clearfix">
+					<span class="dropdownValue"></span>
+					<i class="bar-icon-18 icon-arrow"></i>
+					<div class="font-name-list" style="overflow: hidden;" tabindex="0">
+						<ul>			
+							<div id="noUselistLoading" class="fontLoadingIcon">
+								<div class="ball-spin-fade-loader">
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+							</div>
+							<li data-fontname="arial black">arial black</li>
+							<li data-fontname="宋体">宋体</li>
+							<li data-fontname="仿宋">仿宋</li>
+							<li data-fontname="楷体">楷体</li>
+							<li data-fontname="黑体">黑体</li>
+							<li data-fontname="微软雅黑">微软雅黑</li>
+							<li data-fontname="Aa夜茴体">Aa夜茴体</li>
+							<li data-fontname="新蒂小丸子体">新蒂小丸子体</li>
+							<li data-fontname="新蒂黑板报底字">新蒂黑板报底字</li>
+							<li data-fontname="字体管家Aa弯弯">字体管家Aa弯弯</li>
+							<li data-fontname="字体管家胖小儿">字体管家胖小儿</li>
+							<li data-fontname="字体管家方萌">字体管家方萌</li>
+							<li data-fontname="奇思悠然体">奇思悠然体</li>
+							<li data-fontname="奇思粗萌体">奇思粗萌体</li>
+						</ul>
+					</div>
+				</div>
+				<div id="fontSizeArea" class="marginT10 fotorPanel-title clearfix">
+					<div class="font-slider-left pull-left">
+						<span id="fontSizeSliderTitleText">字号：</span>
+						<input type="range" min="10" max="100" value="10">
+					</div>
+					<div class="font-slider-right pull-right">
+						<div id="fontSizeDropdown" class="select clearfix marginT5">
+							<input class="dropdownValue" type="tel"><i class="bar-icon-18 icon-arrow"></i>
+							<ul style="overflow: hidden;" tabindex="1">			
+								<li>10</li>			
+								<li>11</li>
+								<li>12</li>
+								<li>14</li>
+								<li>16</li>
+								<li>18</li>
+								<li>24</li>
+								<li>36</li>
+								<li>48</li>
+								<li>72</li>
+								<li>96</li>
+								<li>120</li>
+								<li>150</li>
+								<li>200</li>
+								<li>300</li>
+								<li>400</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

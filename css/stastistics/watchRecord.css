@@ -1,0 +1,42 @@
+.echartTabs .title{
+	text-align: center;
+	width: 100%;
+	height: 65px;
+	line-height: 65px;
+	font-size: 24px;
+}
+.echartTabs .sonTabs{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 60px;
+	text-align: center;
+	line-height: 40px;
+}
+.echartTabs span {
+	cursor: pointer;
+	list-style: none;
+	width: 75px;
+	display: inline;
+	background-color: #fff;
+	color: #707576;
+	border: 1px solid #6ecce3;
+	padding: 4px 10px;
+	margin: 0 -2px;
+	border-right: none;
+}
+.echartTabs span:last-of-type{
+	border-right: 1px solid #6ecce3;
+}
+.echartTabs span:first-of-type{
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.echartTabs span:last-of-type{
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.echartTabs span.current{
+	color:#fff;
+	background-color: #6ecce3;
+}

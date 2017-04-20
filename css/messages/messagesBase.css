@@ -1,0 +1,18 @@
+#email-content table th,#email-content table td{
+	word-break:break-all;
+	text-align: center;
+	vertical-align: middle;
+}
+#email-content table > tbody > tr >td:last-of-type{
+	cursor: pointer;
+	position: relative;
+}
+.unread {
+	position: absolute;
+	background-color: #fff;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	letter-spacing: 2px;
+	z-index: 1;
+}

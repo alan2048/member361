@@ -1,0 +1,23 @@
+#userClass.form-control option {
+	height: 24px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	text-indent: 12px;
+}
+#userClass.form-control option:first-of-type{
+	display: none;
+}
+.faceimage img {
+	cursor: pointer;
+	display: inline-block;
+}
+.textbox-invalid {
+	border-color: #ffa8a8 !important;
+	background-color: #fff3f3;
+	border: 1px solid;
+}
+/*.dz-details,.dz-success-mark,.dz-error-mark{
+	display: none !important;
+}*/

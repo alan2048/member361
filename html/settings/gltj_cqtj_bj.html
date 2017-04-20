@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>园务管理</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="assets/plugins/jquery-ui-1.10.4/jquery-ui.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-3.1.1/css/bootstrap.css" rel="stylesheet" />
+	<link href="assets/plugins/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="assets/css/animate.css" rel="stylesheet" />
+	<link href="assets/css/style.css" rel="stylesheet" />
+	<link href="assets/css/style-responsive.css" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+	<link href="assets/plugins/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+	<link href="assets/plugins/ion.rangeSlider/css/ion.rangeSlider.skinNice.css" rel="stylesheet">
+	<link href="assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css" rel="stylesheet">
+	<link href="assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet">
+	<link href="assets/plugins/password-indicator/css/password-indicator.css" rel="stylesheet">
+	<link href="assets/plugins/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet">
+	<link href="assets//plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet">
+	<link href="assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet">
+	<link href="assets/plugins/jquery-tagit/css/jquery-tagit.css" rel="stylesheet">
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<!-- begin container-fluid -->
+			<div class="container-fluid">
+				<!-- begin mobile sidebar expand / collapse button -->
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand"><span class="navbar-logo"></span> 静安实验幼儿园</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<!-- end mobile sidebar expand / collapse button -->
+				
+				<!-- begin header navigation right -->
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class">班级页面</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown">
+                            <li class="media">
+                                <a href="javascript:;">
+                                    <div class="media-body">
+                                        <div class="text-muted">萌大班</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="media">
+                                <a href="javascript:;">
+                                    <div class="media-body">
+                                        <div class="text-muted">萌中班</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="media">
+                                <a href="javascript:;">
+                                    <div class="media-body">
+                                        <div class="text-muted">萌小班</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="assets/img/user-11.jpg" alt="" /> 
+							<span class="hidden-xs"><strong>杜雁</strong> <span style="color:#999">[系统管理员]</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="javascript:;">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+				<!-- end header navigation right -->
+			</div>
+			<!-- end container-fluid -->
+		</div>
+		<!-- end #header -->
+		
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar nav -->
+				<ul class="nav">
+                    <!-- begin sidebar minify button -->
+					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+			        <!-- end sidebar minify button -->
+					<li class="has-sub">
+						<a href="javascript:;">
+                        	<i class="fa fa-group (alias)"></i> 
+						    <b class="caret pull-right"></b>
+						    <span>师资管理</span> 
+						</a>
+						<ul class="sub-menu">
+							<li><a href="szgl_jsxx.html">教师信息</a></li>
+						</ul>
+					</li>
+					<li class="has-sub">
+						<a href="javascript:;">
+						    <i class="fa fa-calendar"></i>
+						    <b class="caret pull-right"></b>
+						    <span>班务管理</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="bwgl_yexx.html">幼儿信息</a></li>
+							<li><a href="bwgl_jzxx.html">家长信息</a></li>
+							<li><a href="bwgl_bjgl.html">班级管理</a></li>
+                            <li><a href="bwgl_bjhd.html">班级活动</a></li>
+						</ul>
+					</li>
+                    <li class="has-sub">
+						<a href="javascript:;">
+						    <i class="fa fa-book"></i>
+						    <b class="caret pull-right"></b>
+						    <span>教学管理</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub"><a href="javascript:;"><b class="caret pull-right"></b>预设计划</a>
+								<ul class="sub-menu">
+									<li><a href="jxgl_ysjh_yzjh.html">月周计划</a></li>
+<li><a href="jxgl_ysjh_gcwd.html">观察维度</a></li>
+<li><a href="jxgl_ysjh_kcjh.html">课程计划</a></li>
+                                    
+								</ul>
+							</li>
+							<li><a href="jxgl_gcgl.html">过程管理</a></li>
+							<li class="has-sub"><a href="javascript:;"><b class="caret pull-right"></b>评价管理</a>
+								<ul class="sub-menu">
+									<li><a href="jxgl_pjgl_rcpj.html">日常评价</a></li>
+									<li><a href="jxgl_pjgl_xqpj.html">学期评价</a></li>
+                                    
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="has-sub">
+						<a href="javascript:;">
+						    <i class="fa fa-heart"></i> 
+						    <b class="caret pull-right"></b>
+						    <span>保健管理</span>
+						</a>
+                        <ul class="sub-menu">
+							<li><a href="bjgl_jkzl.html">健康资料</a></li>
+							<li><a href="bjgl_yeqj.html">幼儿请假</a></li>
+						</ul>
+					</li>
+                    <li class="has-sub">
+						<a href="javascript:;">
+						    <i class="fa fa-dashboard (alias)"></i>
+						    <b class="caret pull-right"></b>
+						    <span>家园互动</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="jyhd_czda.html">成长档案</a></li>
+							<li><a href="jyhd_hdhd.html">互动活动</a></li>
+						</ul>
+					</li>
+                    <li class="has-sub">
+						<a href="javascript:;">
+						    <i class="fa fa-volume-up"></i>
+						    <b class="caret pull-right"></b>
+						    <span>消息管理</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="xxgl_xxgg.html">消息公告</a></li>
+							<li><a href="xxgl_dcwj.html">调查问卷</a></li>
+						</ul>
+					</li>
+                    <li class="has-sub active">
+						<a href="javascript:;">
+						    <i class="fa fa-signal"></i>
+						    <b class="caret pull-right"></b>
+						    <span>管理&统计</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="gltj_zttj.html">主题统计</a></li>
+							<li><a href="gltj_xjtj.html">消息统计</a></li>
+                            <li class="has-sub active"><a href="javascript:;"><b class="caret pull-right"></b>出勤统计</a>
+								<ul class="sub-menu">
+									<li class="active"><a href="gltj_cqtj_bj.html">班级</a></li>
+									<li><a href="gltj_cqtj_gr.html">个人</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+                    <li class="has-sub">
+						<a href="javascript:;">
+						    <i class="fa fa-cogs"></i>
+						    <b class="caret pull-right"></b>
+						    <span>设置</span>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="sz_ztsz.html">主题设置</a></li>
+							<li><a href="sz_bqsz.html">标签设置</a></li>
+                            <li><a href="sz_zzsz.html">组织管理</a></li>
+							<li><a href="sz_wdzh.html">我的账户</a></li>
+						</ul>
+					</li>
+				</ul>
+				<!-- end sidebar nav -->
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<!-- end #sidebar -->
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right">
+				<li><a href="javascript:;">静安实验幼儿园</a></li>
+				<li><a href="javascript:;">萌大班</a></li>
+				<li class="active">管理&统计</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">出勤统计&nbsp;&nbsp;<small></small></h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row">
+			    <!-- begin col-12 -->
+			    <div class="col-md-12">
+                
+
+                    
+                	<!--begin 功能板块 -->
+
+    <table class="fc-header" style="width:100%">
+      <tbody>
+        <tr>
+          <td class="fc-header-left" style="width:33%;">
+          <div class="col-md-3 ui-sortable" style="padding-left:0px; margin-bottom:15px;">
+                                        <input class="form-control" id="datepicker-default" placeholder="Select Date" value="07/28/2016" type="text">
+                                    </div>
+          </td>
+          <td class="fc-header-center" style="width:34%">&nbsp;</td>
+          <td class="fc-header-right" style="width:33%;">
+          <div style="float:right">
+          <span class="fc-button fc-button-month fc-state-default fc-corner-left" unselectable="on">月</span><span class="fc-button fc-button-agendaWeek fc-state-default" unselectable="on">周</span><span class="fc-button fc-button-agendaDay fc-state-default fc-corner-right fc-state-active" unselectable="on">日</span>
+          </div>
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+
+                    
+
+                    
+                    <!--begin 表格 -->
+                    <div class="panel panel-inverse">
+                    	<div class="email-content">
+                        <div class="row">
+                        
+                        <div class="col-md-3 cqtj-bj-col">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>萌大班<br>26人</th>
+                                        <th>上午</th>
+                                        <th>下午</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>实到</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                    </tr>
+                                    <tr>
+                                        <td>请假</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>无故缺席</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-3 cqtj-bj-col">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>萌中班<br>26人</th>
+                                        <th>上午</th>
+                                        <th>下午</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>实到</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                    </tr>
+                                    <tr>
+                                        <td>请假</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>无故缺席</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-3 cqtj-bj-col">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>萌小班<br>26人</th>
+                                        <th>上午</th>
+                                        <th>下午</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>实到</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                    </tr>
+                                    <tr>
+                                        <td>请假</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>无故缺席</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-3 cqtj-bj-col">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>萌大班<br>26人</th>
+                                        <th>上午</th>
+                                        <th>下午</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>实到</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                    </tr>
+                                    <tr>
+                                        <td>请假</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>无故缺席</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="col-md-3 cqtj-bj-col">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>萌中班<br>26人</th>
+                                        <th>上午</th>
+                                        <th>下午</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>实到</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                    </tr>
+                                    <tr>
+                                        <td>请假</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>无故缺席</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        
+                        </div>
+			        </div>
+                    </div>
+                    <!-- end panel -->
+            	</div>
+                <!-- end col-12 --> 
+			</div>
+        	<!-- end row -->
+        </div>
+		<!-- end #content -->
+		
+		<!-- begin scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	 <script src="assets/plugins/jquery-1.7.2/jquery-1.7.2.js"></script>
+	  <script src="assets/plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	 <script src="assets/plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	 <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	 <script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+     <script src="assets/plugins/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+     <script src="assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+     <script src="assets/plugins/masked-input/masked-input.js"></script>
+     <script src="assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+     <script src="assets/plugins/password-indicator/js/password-indicator.js"></script>
+     <script src="assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+     <script src="assets/plugins/bootstrap-select/bootstrap-select.js"></script>
+     <script src="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+     <script src="assets/plugins/jquery-tagit/js/tag-it.min.js"></script>
+     <script src="assets/js/form-plugins.js"></script>
+	 <script src="assets/js/dashboard.js"></script>
+	 <script src="assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+  	<script src="assets/js/apps.js"></script>
+	<!--[if lt IE 9]>
+		<script src="assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="assets/crossbrowserjs/respond.min.js"></script>
+		<script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+	
+	<!-- ================== END BASE JS ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+	 
+	<!-- ================== END PAGE LEVEL JS ================== -->
+	<script>
+		$(document).ready(function() {
+			App.init();
+			FormPlugins.init();
+		});
+	</script>
+</body>
+</html>

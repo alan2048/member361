@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>观察记录统计</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" href="../favicon.png">
+    
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+	<link href="../../css/stastistics/watchRecord.css" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	<script src="../../js/common/vue.js"></script>    
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class"></i>班级页面<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class" id="classid" data-classid={{classItems.curClassId}}>{{classItems.curClass}}</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img v-bind:src="curUser.portraitId" alt="" /> 
+							<span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="{{logoutHttp}}">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">观察记录统计</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">观察记录统计&nbsp;&nbsp;</h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row" id="row">
+            	<div class="col-md-12">
+                    <div class="result-container">
+			            <div class="input-group m-b-20">
+                            <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
+                            	<div id="data-table_length" class="dataTables_length">
+      								<label style="margin-bottom:3px">年级：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="gradeId01">
+       						 				<option value="1">托班</option>
+      						 				<option value="2">小班</option>
+      						 				<option value="3">中班</option>
+      						 				<option value="4" selected="selected">大班</option>
+    									</select>
+      								</label>
+      								<label style="margin-bottom:3px">年份：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="year01">
+      										<option value="2016">2016年</option>
+      										<option value="2017" selected="selected">2017年</option>
+    									</select>
+      								</label>
+      								<label style="margin-bottom:3px">关联月份：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="month01"></select>
+      									<script type="text/html" id="month_script">
+    										{{each month as value i}}
+											<option value="{{value}}">{{value}}月</option>
+    										{{/each}}
+    									</script>
+      								</label>
+    							</div>
+                            </div>
+                            <div class="input-group-btn">
+                                <button id="btn01" type="button" class="btn btn-inverse" style="padding-top:10px; padding-bottom:10px"><i class="fa fa-search"></i> 查询</button>
+                            </div>
+                        </div>   
+                	</div>
+                    <div class="panel panel-inverse">
+                    	<div class="echartTabs">
+							<div class="title">各班级观察记录数量</div>
+                		</div>
+                    	<div class="email-content" id="email-content01" style="height: 660px;width: 100%;"></div>
+                    </div>
+            	</div>
+
+
+
+            	<div class="col-md-12">
+                    <div class="result-container">
+			            <div class="input-group m-b-20">
+                            <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
+                            	<div id="data-table_length" class="dataTables_length">
+      								<label style="margin-bottom:3px">年级：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="gradeId02">
+       						 				<option value="1">托班</option>
+      						 				<option value="2">小班</option>
+      						 				<option value="3">中班</option>
+      						 				<option value="4" selected="selected">大班</option>
+    									</select>
+      								</label>
+      								<label style="margin-bottom:3px">年份：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="year02">
+      										<option value="2016">2016年</option>
+      										<option value="2017" selected="selected">2017年</option>
+    									</select>
+      								</label>
+      								<label style="margin-bottom:3px">关联月份：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="month02">
+    									</select>
+      								</label>
+    							</div>
+                            </div>
+                            <div class="input-group-btn">
+                                <button id="btn02" type="button" class="btn btn-inverse" style="padding-top:10px; padding-bottom:10px"><i class="fa fa-search"></i> 查询</button>
+                            </div>
+                        </div>   
+                	</div>
+                    <div class="panel panel-inverse">
+                    	<div class="echartTabs">
+							<div class="title">各观察指标相关观察记录数量</div>
+							<div class='sonTabs' id="sonTabs"></div>
+							<script id="sonTabs_script" type="text/html">
+								{{each data as value i}}
+								{{if i==0}}
+								<span data-courseid="{{value.id}}" class="current">{{value.name}}</span>
+								{{else}}
+								<span data-courseid="{{value.id}}">{{value.name}}</span>
+								{{/if}}
+								{{/each}}
+							</script>
+                		</div>
+                    	<div class="email-content" id="email-content02" style="height: 660px;width: 100%;"></div>
+                    </div>
+            	</div>
+
+
+			</div>
+        </div>
+		<!-- end #content -->
+		
+		<!-- begin scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+ 
+	<script src="../../plugins/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+	<script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	<script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	<script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	
+	<script src="../../js/apps.js"></script>
+	<script src="../../js/common/base.js" ></script>
+	<script src="../../js/template.js" ></script>
+	<!-- <script src="../../plugins/echarts/echarts.js"></script> -->
+	<script src="../../plugins/echarts/echarts.min.js"></script>
+	<script src="../../js/statistics/watchRecord.js"></script>
+</body>
+</html>

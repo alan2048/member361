@@ -1,0 +1,60 @@
+.basebox {
+	background: #faf9f7;
+	border: 1px solid #ffead0;
+	border-top: 3px solid #ffead0;
+	margin-bottom: 5px;
+	padding: 20px 0px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+.baseTitle{
+	color: #707478;
+	margin: 20px 0 15px 0;
+}
+.btn.finalbtn {
+	width: 100px;
+	margin-top: 20px;
+}
+.textbox-invalid {
+	border-color: #ffa8a8;
+	background-color: #fff3f3;
+}
+.teacherList{
+	display: inline-block;
+	height: 25px;
+	margin-right: 20px;
+	padding: 0 10px;
+}
+.teacherList span,.teacherList i{
+	cursor: pointer;
+}
+#wacthtree ul,#wacthtree li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#wacthtree .tree-menu{
+	position: relative;
+}
+#wacthtree .treelist{
+	
+	
+	margin-bottom: 50px;
+
+	left: 200px;
+}
+#wacthtree .treelist >span{
+	display: block;
+	width: 150px;
+	height: 32px;
+	color: #fff;
+	background-color: #49b6d6;
+	line-height: 32px;
+	text-align: center;
+	border-radius: 3px;
+	cursor: pointer;
+}
+#wacthtree .active{
+	display: block;
+}

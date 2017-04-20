@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+	<title>自选活动</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" href="../favicon.png">
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+	
+    <link href="../../css/common/jquery.toast.min.css" rel="stylesheet" />
+    <link href="../../css/interaction/self-activity.css" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	<script src="../../js/common/vue.js"></script>
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class"></i>班级页面<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown" id="changeClass">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class" id="classid" data-classid="">{{classItems.curClass}}</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}" data-classid="{{item.id}}" data-name="{{item.name}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img v-bind:src="curUser.portraitId" alt="" /> 
+							<span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="{{logoutHttp}}">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">自选活动</li>
+			</ol>
+			
+			<h1 class="page-header">自选活动</h1>
+			
+			<div class="row">
+			    <div class="col-md-12">
+                    <div class="result-container">
+			            <div class="input-group m-b-20">
+                            <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
+                            	<div id="data-table_length" class="dataTables_length">
+                                    <label style="margin-bottom:3px">分园切换：
+                                        <select size="1" name="data-table_length" aria-controls="data-table" id="school"></select>
+                                        <script type="text/html" id="school_script">
+                                            {{each data as value i}}
+                                            <option value="{{value.id}}" data-id="{{value.id}}">{{value.name}}</option>
+                                            {{/each}}
+                                        </script>
+                                    </label>
+    							</div>
+                            </div>
+                            <div class="input-group-btn">
+                                <button id="btn01" type="button" class="btn btn-inverse" style="padding-top:10px; padding-bottom:10px"><i class="fa fa-search"></i> 查询</button>
+                            </div>
+                        </div>   
+                	</div>
+                	<!-- end 搜索板块 -->
+                     <div class="email-btn-row hidden-xs" style="display:inline-block">
+                        <a href="#" class="btn btn-sm btn-inverse" id="activity_new">新建</a>
+                    </div>
+
+                	<div>
+						<ul id="activityList"></ul>
+                        <ul id="pagination"></ul>
+						<script type="text/html" id="activityList_script">
+                            {{each data as value i}}
+                            <li>
+                                <div class="yearBg" style="background-image: url({{value.pic}});">
+                                    <span class="editBtn" data-id="{{value.id}}" data-name="{{value.title}}"></span>
+                                    <span class="signInBtn" data-id="{{value.id}}" data-name="{{value.title}}" data-time="{{value.time}}"></span>
+                                    <span class="deleteBtn" data-id="{{value.id}}"></span>
+                                </div>
+                                <div class="yearTitle">
+                                    <span class="current">{{value.title}}</span>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </script>
+                	</div>
+                	<div style="clear:both;"></div>
+            	</div>
+			</div>
+        </div>
+
+        <div id="content01" class="content hide01">
+            <h1 class="page-header"><span></span>&nbsp;&nbsp;<small></small></h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-inverse">
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+                                <div class="col-md-12 ui-sortable">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"><span style="color:#ff0000">*</span> 封面</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <div class="faceimage fill" id="addPicBtn"></div>
+                                            <input type="hidden" name="pic">
+                                            <input type="hidden" name="id">
+                                            <input type="hidden" name="schoolId">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"><span style="color:#ff0000">*</span> 活动名称：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <input class="form-control fill" placeholder="" type="text" id="activityTitle" name="title">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"> 副标题：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <textarea class="form-control" placeholder="（您还可以输入120个文字）" rows="5" id="activitySummary" name="content"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"><span style="color:#ff0000">*</span> 活动时间：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <input class="form-control fill" placeholder=" " type="text" id="activityTitle" name="displayTime">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"><span style="color:#ff0000">*</span> 容纳人数：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <input class="form-control fillnum" placeholder=" " type="text" id="activityTitle" name="maxPeople">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"> 课程内容：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <textarea class="form-control" placeholder="（您还可以输入120个文字）" rows="5" id="activitySummary" name="detailContent"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"> 材料提供：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <textarea class="form-control" placeholder="（您还可以输入120个文字）" rows="5" id="activitySummary" name="gameMaterial"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"></label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <ul class="pagination"><li class="faceimage" id="addPicBtn01"></li></ul>
+                                            <script type="text/html" id="addPicBtn01_script">
+                                                {{each coursePics as value i}}
+                                                <li>
+                                                    <a href="javascript:void;" class="pic" data-pic="{{value}}">
+                                                        <img src="{{path}}{{value}}&Thumbnail=1">
+                                                        <span class="deleteIcon"></span>
+                                                    </a>
+                                                </li>
+                                                {{/each}}
+                                            </script>
+                                            <input type="hidden" name="coursePics">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"><span style="color:#ff0000">*</span> 活动地点：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <input class="form-control fill" placeholder=" " type="text" id="activityTitle" name="place">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"><span style="color:#ff0000">*</span> 指导教师：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <input class="form-control fill" placeholder=" " type="text" id="activityTitle" name="teachers">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"> 温馨提示：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <textarea class="form-control" placeholder="（您还可以输入120个文字）" rows="5" id="activitySummary" name="reminder"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable">作品展示：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <ul class="pagination"><li class="faceimage" id="addPicBtn02"></li></ul>
+                                            <script type="text/html" id="addPicBtn02_script">
+                                                {{each workShow as value i}}
+                                                <li>
+                                                    <a href="javascript:void;" class="pic" data-pic="{{value}}">
+                                                        <img src="{{path}}{{value}}&Thumbnail=1">
+                                                        <span class="deleteIcon"></span>
+                                                    </a>
+                                                </li>
+                                                {{/each}}
+                                            </script>
+                                            <input type="hidden" name="workShow">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable">是否停用此活动：</label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <span id="switchBtn" class="has-hover">启用</span>
+                                            <input type="hidden" name="isStop" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ui-sortable"></label>
+                                        <div class="col-md-9 ui-sortable">
+                                            <span id="submit" class="btn btn-success">提交</span>
+                                            <span id="quit" class="btn btn-quit">取消</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content02" class="content hide01">
+            <h1 class="page-header"><span></span>&nbsp;&nbsp;<small></small></h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <ul id="members"></ul>
+                        <script type="text/html" id="members_script">
+                            {{each data as value i}}
+                            <li>
+                                <a class="membersBg" data-courseId="{{courseId}}" data-time="{{time}}" data-useruuid="{{value.useruuid}}" style="background-image: url({{path}}{{value.pic}}&Thumbnail=1);" href="javascript:void(0);" >
+                                    <span class="icon02 {{if value.callRoll==1}}active{{/if}}" ></span>
+                                </a>
+                                <div class="membersTitle">{{value.className}}—{{value.name}}</div>
+                            </li>
+                            {{/each}}
+                        </script>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div>
+		
+        <a href="javascript:;" id="backBtn" class="hide01" >
+            <span>返回上一层级</span>
+        </a>
+		
+	</div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        提示
+                    </h4>
+            </div>
+                <div class="modal-body">
+                    <label><span>确定删除此活动吗？</span></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="finalBtn">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+	<!-- end page container -->
+
+	<script src="../../plugins/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+	<script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	<script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	<script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+  	<script src="../../js/apps.js"></script>
+
+	<script src="../../js/common/base.js" ></script>
+	<script src="../../js/template.js" ></script>
+	<!-- <script src="../../js/common/simplePagination.js" ></script> -->
+    <script src="../../js/common/dropzone.min.js" ></script><!-- 上传插件 -->
+    <!-- <script src="../../js/common/jquery.toast.min.js"></script> --><!-- 消息提示插件 -->
+    <!-- <script src="../../js/common/jquery.nicescroll.min.js"></script> -->
+    <script src="../../js/interaction/self-activity.js"></script>
+
+</body>
+</html>

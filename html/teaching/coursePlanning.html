@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>课程计划</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" href="../favicon.png">
+    
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	<script src="../../js/common/vue.js"></script>    
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class"></i>班级页面<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class" id="classid" data-classid={{classItems.curClassId}}>{{classItems.curClass}}</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img v-bind:src="curUser.portraitId" alt="" /> 
+							<span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="{{logoutHttp}}">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">观察计划</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">预设计划&nbsp;&nbsp;<small>观察计划</small></h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row" id="row">
+			    <!-- begin col-12 -->
+			    <div class="col-md-12">
+                
+                	<!-- begin 搜索板块 -->
+                    <div class="result-container">
+			            <div class="input-group m-b-20">
+                            <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
+                            <div id="data-table_length" class="dataTables_length">
+      						<!-- <label style="margin-bottom:3px">
+      						班级名称：
+      							<select size="1" name="data-table_length" aria-controls="data-table">
+       						 	<option value="10" selected="selected">所有班级</option>
+      						 	<option value="10">萌大班</option>
+      						 	<option value="10">萌中班</option>
+     						 	<option value="10">萌小班</option>
+    							</select>
+      						</label> -->
+                            <label class="dataTables_filter" id="data-table_filter" style="margin-bottom:3px">
+                       	 		计划名称:
+      							<input type="text" aria-controls="data-table">
+      						</label>
+    						</div>
+                            </div>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-inverse" style="padding-top:10px; padding-bottom:10px"><i class="fa fa-search"></i> 查询</button>
+                            </div>
+                        </div>   
+                	</div>
+                	<!-- end 搜索板块 -->
+                    
+                	<!--begin 功能板块 -->
+                    <div class="email-btn-row hidden-xs" style="display:inline-block">
+                        <a href="coursePlanning_new.html" class="btn btn-sm btn-inverse" id="courseSave">新建</a>
+                        <a href="#" class="btn btn-sm btn-default" id="courseDelete">删除</a>
+                        <a href="#" class="btn btn-sm btn-default" id="courseEdit">编辑</a>
+                    </div>
+                    
+                    <!-- begin 分页 -->
+                    <ul id="pagination"></ul>
+                    
+                    <!--begin 表格 -->
+                    <div class="panel panel-inverse">
+                    	<div class="email-content" id="email-content"></div>
+
+                    	<script type="text/html" id="table-email">
+                        	<table class="table table-email">
+                            	<thead>
+                                	<tr>
+                                    	<th class="email-select"><a href="#" data-click="email-select-all"><i class="fa fa-square-o fa-fw"></i></a></th>
+                                    	<th>ID</th>
+                                    	<th>计划名称</th>
+                                    	<th>日期</th>
+                                    	<th>观察目标</th>
+                                    	<th>创建人</th>
+                                    	<th>创建时间</th>
+                                	</tr>
+                            	</thead>
+                           	 	<tbody>
+                           	 		{{each list as item i}}
+                            		<tr>
+                                  		<td style="word-break:break-all;" class="email-select">
+                                  			<a href="#" data-click="email-select-single"><i class="fa fa-square-o fa-fw" data-id={{item.id}}></i></a>
+                                  		</td>
+                                  		<td style="word-break:break-all;" class="email-sender">{{item.id}}</td>
+                                  		<td style="word-break:break-all;" class="email-sender">{{item.name}}</td>
+                                  		<td style="word-break:break-all;" class="email-sender"><span class="email-date">{{item.endtime01}}</span></td>
+                                  		<td style="word-break:break-all;" class="email-sender">{{item.target}}</td>
+                                  		<td style="word-break:break-all;" class="email-sender">{{item.companyid}}</td>
+                                  		<td style="word-break:break-all;" class="email-date">{{item.begintime01}}</td>
+                                	</tr>
+                                	{{/each}}
+                            	</tbody>
+                        	</table>
+							<div class="email-footer clearfix">
+                            	{{totalRow}} 条，每页 {{pageSize}} 条
+                            	<ul class="pagination pagination-sm m-t-0 m-b-0 pull-right" id="pagination01">
+                            		{{if pageNumber==1}}
+                                		<li class="disabled"><a href="#page-1" data-num="1"><i class="fa fa-angle-double-left" data-num="1"></i></a></li>
+                                		<li class="disabled"><a href="#page-{{pageNumber-1}}" data-num={{pageNumber-1}}><i class="fa fa-angle-left" data-num={{pageNumber-1}}></i></a></li>
+                                	{{else}}
+                                		<li><a href="#page-1" data-num="1"><i class="fa fa-angle-double-left" data-num="1"></i></a></li>
+                                		<li><a href="#page-{{pageNumber-1}}" data-num={{pageNumber-1}}><i class="fa fa-angle-left" data-num={{pageNumber-1}}></i></a></li>
+                                	{{/if}}
+                                	{{if pageNumber==totalPage}}
+                                		<li class="disabled"><a href="#page-{{pageNumber+1}}" data-num={{pageNumber+1}}><i class="fa fa-angle-right" data-num={{pageNumber+1}}></i></a></li>
+                                		<li class="disabled"><a href="#page-{{totalPage}}" data-num={{totalPage}}><i class="fa fa-angle-double-right" data-num={{totalPage}}></i></a></li>
+                                	{{else}}
+                                		<li><a href="#page-{{pageNumber+1}}" data-num={{pageNumber+1}}><i class="fa fa-angle-right" data-num={{pageNumber+1}}></i></a></li>
+                                		<li><a href="#page-{{totalPage+1}}" data-num={{totalPage}}><i class="fa fa-angle-double-right" data-num={{totalPage}}></i></a></li>
+                                	{{/if}}
+                            	</ul>
+                        	</div>
+                        </script>
+                    </div>
+                    <!-- end panel -->
+            	</div>
+                <!-- end col-12 --> 
+			</div>
+        	<!-- end row -->
+        </div>
+		<!-- end #content -->
+		
+		<!-- begin scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+ 
+	<script src="../../plugins/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+	<script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	<script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	<script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	
+	<script src="../../js/apps.js"></script>
+	<script src="../../js/common/base.js" ></script>
+	<script src="../../js/template.js" ></script>
+	<script src="../../js/common/simplePagination.js" ></script>
+	<script src="../../js/teaching/coursePlanning.js"></script>
+</body>
+</html>

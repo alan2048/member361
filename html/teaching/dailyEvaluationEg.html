@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+	<title>典型案例</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" href="../favicon.png">
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+	<link href="../../css/teaching/dailyEvaluationEg.css" rel="stylesheet" />
+    <link href="../../css/teaching/jquery.toast.min.css" rel="stylesheet" />
+    
+	<!-- ================== END BASE CSS STYLE ================== -->
+	<script src="../../js/common/vue.js"></script>
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class"></i>班级页面<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown" id="changeClass">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class" id="classid" data-classid={{classItems.curClassId}}>{{classItems.curClass}}</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}" data-classid="{{item.id}}" data-name="{{item.name}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img v-bind:src="curUser.portraitId" alt="" /> 
+							<span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="{{logoutHttp}}">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">典型案例</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">典型案例&nbsp;&nbsp;<small>学生列表</small></h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row">
+			    <!-- begin col-12 -->
+			    <div class="col-md-12">
+                
+                	<!-- begin 搜索板块 -->
+                    <div class="result-container">
+			            <div class="input-group m-b-20">
+                              <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
+                                    <div id="data-table_length" class="dataTables_length">
+      								<label style="margin-bottom:3px">关联课程：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="courses"></select>
+    									<script type="text/html" id="courses_script">
+    										<option value="" selected="true">所有课程</option>
+    										{{each data as value i}}
+											<option value="{{value.id}}" data-id="{{value.id}}" >{{value.name}}</option>
+    										{{/each}}
+    									</script>
+      								</label>
+      								<label style="margin-bottom:3px">关联指标：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="coursesDim"></select>
+    									<script type="text/html" id="coursesDim_script">
+    										<option value="" selected="selected">所有指标</option>
+    										{{each data as value i}}
+											<option value="{{value.id}}" data-id="{{value.id}}" >{{value.name}}</option>
+    										{{/each}}
+    									</script>
+      								</label>
+      								<label style="margin-bottom:3px">年份：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="year01">
+      										<option value="" selected="selected">所有年份</option>
+      										<option value="2016">2016年</option>
+      										<option value="2017">2017年</option>
+    									</select>
+      								</label>
+      								<label style="margin-bottom:3px">月份：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="month01">
+    									</select>
+    									<script type="text/html" id="month_script">
+    										<option value="" selected="selected">所有月份</option>
+    										{{each month as value i}}
+											<option value="{{value}}">{{value}}月</option>
+    										{{/each}}
+    									</script>
+      								</label>
+      								<label style="margin-bottom:3px">观察人：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="teachers">
+    									</select>
+    									<script type="text/html" id="teachers_script">
+    										<option value="" selected="selected">所有老师</option>
+    										{{each data as value i}}
+											<option value="{{value.id}}" data-teacherid="{{value.id}}">{{value.userName}}</option>
+    										{{/each}}
+    									</script>
+      								</label>
+    							</div>
+                            </div>
+                            <div class="input-group-btn">
+                                <button id="btn01" type="button" class="btn btn-inverse" style="padding-top:10px; padding-bottom:10px"><i class="fa fa-search"></i> 查询</button>
+                            </div>
+                        </div>   
+                	</div>
+                	<!-- end 搜索板块 -->
+
+                    <div id="modal-dialog-qunzu">
+                         <div class="col-md-6 first-content">
+                              <div class="email-btn-row hidden-xs">
+                                   <!-- <a href="javascript:void(0);" class="btn btn-sm btn-inverse" id="dailyEvaluation">评价</a> -->
+                                   <a href="#" class="btn btn-sm btn-inverse" id="dailyEvaluationDelete" data-childid="">删除</a>
+                                   <span>未评价</span>
+                              </div>
+                              <div class="panel panel-inverse" style="text-align: center;">
+                                   <div class="email-content" id="email-content"></div>
+                                   <script type="text/html" id="table-email">
+                                   <table class="table table-email">
+                                    <thead>
+                                        <tr>
+                                             <th class="email-select"><a href="#" data-click="email-select-all"></a></th>
+                                             <th style="text-align: center;">ID</th>
+                                             <th style="text-align: center;">记录时间</th>
+                                             <th style="text-align: center;">观察人</th>
+                                             <th style="text-align: center;">观察维度</th>
+                                             <th style="text-align: center;">评价状态</th>
+                                             <th style="text-align: center;">评价时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {{each list as item i}}
+                                        <tr>
+                                             <td class="email-select">
+                                                  <a href="#" data-click="email-select-single"><i class="fa fa-square-o fa-fw" data-id={{item.id}}></i></a>
+                                             </td>
+                                             <td class="email-sender">{{item.id}}</td>
+                                             <td class="email-sender">{{item.createDate}}</td>
+                                             <td class="email-sender">{{item.createUserName}}</td>
+                                             <td class="email-sender">{{item.dimName}}</td>
+                                             <td class="email-sender">
+                                                  {{if item.state=="0"}}
+                                                  <span class="unRead"></span>
+                                                  {{else}}
+                                                       {{item.state}}
+                                                  {{/if}}
+                                              </td>
+                                             <td class="email-sender">{{item.evaluateDate}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        </tbody>
+                                   </table>
+                                   </script>
+                                   <ul id="pagination"></ul>
+                              </div>   
+                         </div>
+
+                <!-- 评价区域 -->
+                <div class="col-md-6 second-content" id="second-content">
+                    <div class="panel panel-inverse">
+                      <div class="panel-body" id="evaluation"></div>
+                      <script type="text/html" id="evaluation_script">
+                          <div class="col-md-12">
+                            <h4 style="font-size:20px; color:#707478">记录信息</h4>
+                            <img src="../../img/teaching/typicalIcon.png" alt="" style="position: absolute;top: 80px;right: 20px;z-index: 1;">
+                            <div class="col-md-12 ui-sortable ysjh-fzmb-jbxx" style="padding-bottom:10px; background:#fff">
+                                <div class="form-group col-md-3">姓名：{{childUserName}}</div>
+                                <div class="form-group col-md-3">关联课程：{{courseName}}</div>
+                                <div class="form-group col-md-3">关联观察维度：{{dimName}}</div>
+                                <div class="form-group col-md-3">记录时间：{{createDate}}</div>
+                            </div>
+                            <form class="form-horizontal">
+                              <div class="col-md-12 ui-sortable">
+                                  <div class="jxgl-pjgl-rcpj-box">
+                                      <h5>图片记录</h5>
+                                      <div class="jxgl-pjgl-rcpj-tpjl">
+                                          <ul id="carousel" class="pagination">
+                                            {{each picMd5List as value i}}
+                                              <li>
+                                                        <a href="#modal-dialog-img" data-toggle="modal" data-src="{{path_img}}{{value}}" class="pic" data-pic="{{value}}">
+                                                      <img src="{{path_img}}{{value}}&Thumbnail=1">
+                                                            <span class="deleteBtn"></span>
+                                                        </a>
+                                              </li>
+                                              {{/each}}
+                                                    <li>
+                                                        <a href="#" id="addPicBtn"></a>
+                                                    </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="jxgl-pjgl-rcpj-box">
+                                      <h5>音频记录</h5>
+                                      <div class="jxgl-pjgl-rcpj-ypjl">
+                                          <ul class="pagination pagination-without-border m-t-0"> 
+                                              {{each voiceMd5List as value i}}
+                                              <li>
+                                                  <img src="../../img/teaching/video.png" alt="PC端暂时无法播放移动端音频">
+                                              </li>
+                                              {{/each}}
+                                          </ul>
+                                      </div>
+                                  </div>
+                                  <div class="jxgl-pjgl-rcpj-box">
+                                      <h5>文字记录</h5>
+                                      <div class="jxgl-pjgl-rcpj-wzjl">
+                                      <div class="col-md-12 ui-sortable" style="padding:0px">
+                                              <textarea id="comment" class="form-control" placeholder="（您还可以输入120个文字）" rows="5">{{comment}}</textarea>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="jxgl-pjgl-rcpj-box" style="margin-top:150px">
+                                      <h5>量表记录</h5>
+                                      <div class="jxgl-pjgl-rcpj-lbjl" id="measureTable">
+                                        {{if measure.type== 1}}
+                                          <table class="table table-bordered">
+                                              <thead>
+                                                  <tr>
+                                                      <th style="width:30%;">{{measure.name}}</th>
+                                                      {{each measure.detail.xlist as value i}}
+                                                      <th><strong>{{value}}</strong></th>
+                                                      {{/each}}
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                {{each measure.detail.ylist as value i}}
+                                                  <tr>
+                                                      <td><strong>{{value}}</strong></td>
+                                                      {{each measure.detail.ylist as value01 j}}
+                                                      <td></td>
+                                                      {{/each}}
+                                                  </tr>
+                                                  {{/each}}
+                                              </tbody>
+                                          </table>
+                                          {{else}}
+                                          <div class='typeRadio'>
+                                              <ul>
+                                                {{each measure.detail as value i}}
+                                                  <li>
+                                                      <div class="measureheader">{{value.yvalue}}</div>
+                                                      <div class="measurebody">
+                                                        {{each value.xvalues as first j}}
+                                                          <label>
+                                                              <input type="radio" name="radio{{i}}">
+                                                              <span>{{first}}</span>
+                                                          </label>
+                                                          {{/each}}
+                                                      </div>
+                                                  </li>
+                                                  {{/each}}
+                                              </ul>
+                                          </div>
+                                          {{/if}}
+                                      </div>
+                                  </div>
+                                  <div class="clearfix"></div>
+                  </div>
+                            </form>
+                          </div>
+                        
+                          <!--begin 评价板块 -->                     
+                          <div class="col-md-12">                        
+                            <h4 style="font-size:20px; color:#707478">我的评价</h4>
+                            <div class="col-md-12 jxgl-pjgl-rcpj-wdpj-box" style=" background:#ebf5f8">
+                              <form class="form-horizontal">
+                                  <div class="form-group">
+                                      <label class="col-md-2 control-label ui-sortable">水平</label>
+                                      <div class="col-md-10 ui-sortable">
+                                          <select class="form-control" id="level">
+                                              <option value="" data-desc="">请选择</option>
+                                              {{each recordLevelInfo.dimLevelList as value i}}
+                                              <option value="{{value.id}}" data-id="{{value.id}}" data-desc="{{value.description}}">{{value.level}}</option>
+                                              {{/each}}
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-md-2 control-label ui-sortable">水平描述</label>
+                                      <div class="col-md-10 ui-sortable">
+                                          <div class="form-control" id="description"></div>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-md-2 control-label ui-sortable"> 评语</label>
+                                      <div class="col-md-10 ui-sortable">
+                                          <textarea class="form-control" placeholder="（您还可以输入120个文字）" rows="7" id="evaluate"></textarea>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-md-2 control-label ui-sortable"> 建议策略</label>
+                                      <div class="col-md-10 ui-sortable">
+                                          <textarea class="form-control" placeholder="（您还可以输入120个文字）" rows="7" id="advice"></textarea>
+                                      </div>
+                                  </div>
+                              </form>        
+                            </div>
+                            
+                            <div class="form-group pull-right" style="margin-top:20px">
+                                <div class="col-md-12 ui-sortable">
+                                        <span id="successInfo"></span>
+                                  {{if operation == 2}}
+                                    <button type="submit" class="btn btn-sm btn-success" id="finalBtn" data-id="{{id}}" style="display: none;">提交</button>
+                                    {{/if}}
+                                </div>
+                            </div>
+                          </div>
+                        </script>
+                    </div>       
+                </div>
+
+                    </div>
+            	</div>
+			</div>
+        </div>
+		<!-- end #content -->
+		
+		<!-- begin scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+
+
+    <!-- #modal-dialog -->
+    <div class="modal fade" id="modal-dialog-img" tabindex="0">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="carousel_img"></div>
+                <span class="closeBtn" data-dismiss="modal"></span>
+            </div>
+        </div>
+    </div>
+
+	<script src="../../plugins/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+	<script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	<script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	<script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="../../js/apps.js"></script>
+	<script src="../../js/common/base.js" ></script>
+	<script src="../../js/template.js" ></script>
+	<script src="../../js/common/simplePagination.js" ></script>
+  <script src="../../js/common/dropzone.min.js" ></script><!-- 上传插件 -->
+  <script src="../../js/teaching/jquery.toast.min.js"></script><!-- 消息提示插件 -->
+  <script src="../../js/teaching/jquery.nicescroll.min.js"></script>
+  <script src="../../js/teaching/dailyEvaluationEg.js"></script>
+
+</body>
+</html>

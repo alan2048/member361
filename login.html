@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>萌宝家园</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<link rel="shortcut icon" href="./html/favicon.png">
+<!--[if IE 6]>
+<script type="text/javascript" language="javascript" src="./js/DD_belatedPNG.js"></script>
+<script type="text/javascript">DD_belatedPNG.fix('body,img,div,ul,li,dl,dd,dt,a,input,p,span,h1,h2,h3,h4,h5,h6');</script>
+<![endif]-->
+<link href="./css/index/login.css" rel="stylesheet" type="text/css" />
+<link href="./css/index/xcConfirm.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="loginbg" id="body">
+	<div class="loginlogo">
+		<img src="img/index/loginlogo.png" />
+	</div>
+	<div class="loginwrapper">
+		<div class="lgimg">
+			<img src="img/index/lgimg001.png" />
+		</div>
+		<div class="lgform">
+				<ul>
+					<li class="lginpbg1"><input type="text" name="username"
+						id="username" class="lginp1" onkeydown="keyLogin(event);" /></li>
+					<li class="lginpbg2"><input type="password" name="password"
+						id="password" class="lginp1" onkeydown="keyLogin(event);" /></li>
+					<li><input  type="image" name="button" id="button" value=""
+						src="img/index/lgbut.png" class="lginpbg4"
+						onclick="login()" /></li>
+				</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="copyright" style="margin-top: 480px;">©&nbsp;版权所有&nbsp;上海紫越网络科技有限公司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;沪备08013796号</div>
+
+<script src="./plugins/jquery-1.11.1/jquery-1.11.1.min.js"></script>
+<script src="./js/xcConfirm.js"></script>
+<script src="./plugins/artDiglog/jquery.artDialog.js?skin=blue"></script>
+<script src="./js/common/base.js" ></script>
+<script type="text/javascript">
+	function login(){
+		//document.loginForm.submit();
+         var username =document.getElementById('username').value;
+         var password =document.getElementById('password').value;
+		   	$.ajax({
+		   	    type : "POST",
+		   	    url : httpUrl.login,
+		   	    data:{username:username,password:password},
+		   	    dataType : "json",
+		   	    success : function(res) {
+		   		 if(res.code==200){
+		 	  	    art.dialog({
+		 	  	    	 title:'提示信息',
+		 			     content: res.info
+		 			  }).time(1);
+		 	  	    var data=JSON.parse(res.data);
+					delCookie("loginId");
+		 	  	    setCookie("loginId",data.loginId,"d30");
+		 	  	    
+		   	    	// 初始化加载页面
+		   	    	window.location.href=httpUrl.back;
+		   		 }else{
+			 	  	    art.dialog({
+			 	  	    	 title:'提示信息',
+			 			     content: res.info
+			 			  }).time(1); 
+		   		  }
+		   	    },
+		   	    error : function(textStatus) {
+		 	  	    art.dialog({
+		 	  	    	 title:'错误信息',
+		 			     content: '系统内部错误！'
+		 			  }).time(1); 
+		   	    	//jAlert("登录失败！用户名或者密码错误！","提示");
+		   	    }
+		   	});
+	}
+		
+	function keyLogin(event){
+		if(event.keyCode==13)  //回车键的键值为13
+			if(event.target.id=="username"){
+				var password =document.getElementById('password').value;
+				if(password){
+					document.getElementById("button").click(); //调用登录按钮的登录事件
+				}else{
+					$(event.target).focusout();
+					$("#password").focus();
+				}
+			}else{
+				document.getElementById("button").click(); //调用登录按钮的登录事件
+			}
+			
+		}
+</script>
+</body>
+</html>

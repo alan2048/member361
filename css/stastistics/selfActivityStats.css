@@ -1,0 +1,84 @@
+ul,li{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#tabs >ul{
+	margin: 0 auto;
+	width: 480px;
+	padding-bottom: 60px;
+	text-align: center;
+}
+#tabs >ul >li{
+	height: 40px;
+	width: 160px;
+	float: left;
+	vertical-align: middle;
+	line-height: 40px;
+	cursor: pointer;
+	color: #4d4d4d;
+	background-color: #fff;
+}
+#tabs >ul >li:first-of-type{
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+#tabs >ul >li:last-of-type{
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+}
+#tabs >ul >li:nth-of-type(2){
+	border-left: 1px solid #d9e0e7;
+	border-right: 1px solid #d9e0e7;
+}
+#tabs >ul >li.current{
+	background-color: #242a30;
+	color: #fff;
+}
+#row >.tabs{
+	display: none;
+}
+#row >.tabs.current{
+	display: block;
+}
+.timeInput{
+	height: 30px;
+}
+#email-content table > tbody > tr > td:last-of-type {
+	 position: static; 
+}
+.detailBtn{
+	display: inline-block;
+	color: #fff;
+	vertical-align: middle;
+	line-height: 40px;
+	background-color: #13b5dd;
+	width: 100px;
+	height: 40px;
+	border-radius: 5px;
+}
+.table-email th,.table-email td{
+	text-align: center;
+}
+.input-group .form-control {
+	z-index: 0; 
+}
+.modal-dialog {
+	width: 800px;
+	margin: 100px auto;
+}
+.closeBtn {
+	display: inline-block;
+	cursor: pointer;
+	width: 50px;
+	height: 50px;
+	background: url(../../img/teaching/closeBtn.png) no-repeat center center;
+	position: absolute;
+	top: -26px;
+	right: -30px;
+}
+#modal-content >.modal-body{
+	height: 700px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}

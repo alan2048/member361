@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="萌宝家园成长档案">
+    <title>成长档案</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/jquery.toast.min.css">
+    <link rel="stylesheet" href="css/sweetalert.css">
+    <link rel="stylesheet" href="css/evaluateBox.css">
+    <link rel="stylesheet" type="text/css" href="css/memberRecord.css">
+</head>
+<body>
+	<div id="page-loader" class="fade in">
+		<span class="spinner"></span>
+	</div>
+    <div id="header">
+		<div id="header-wrapper">
+			<div id="header-left">
+				<ul>
+					<li>
+						<span id="addTextBtn" class="has-hover"></span>
+						<span class="descInfo">添加文字</span>
+					</li>
+					<li>
+						<a id="addPicBtn" class="has-hover" href="#modal-dialog-qunzu" data-toggle="modal"></a>
+						<span class="descInfo">图片库</span>
+					</li>
+					<li>
+						<a class="newInfo" href="Instructions.html" target="_blank">新版成长档案功能介绍</a>
+					</li>
+				</ul>
+			</div>
+			<div id="header-right">
+				<ul>
+					<li>
+						<span id="savePic" class="headerBtn">保存图片</span>
+					</li>
+					<li>
+						<span id="copeRecord" class="headerBtn">档案页复制</span>
+					</li>
+					<li>
+						<div id="user">
+							<span id="userImg">
+								<img src="images/pic01.png" alt="">
+							</span>
+							<span id="userName"></span>
+						</div>
+					</li>
+					<li>
+						<div id="childrenBtn">
+							<span>学生切换列表</span>
+						</div>
+						<ul id="childrenList"></ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </div>
+    <div id="main">
+		<div id="toolbar">
+			<div id="toolbar-wrapper">
+				<h3>模板库</h3>
+				<div id="toolbarList">
+					<ul class="nav">
+                    	<li class="has-sub active">
+							<a href=#>
+						    	<span>月份选择</span>
+						    	<span id="switchBtn" class="has-hover"></span>
+						    	<span class="descInfo">水印开关</span>
+							</a>
+							<ul class="sub-menu" >
+								<li>
+									<ul id="chooseMonth"></ul>
+									<script type="text/html" id="chooseMonth_script">
+										{{each month as value i}}
+										<li data-month={{value}}>
+											<img src="images/month{{value}}.png" alt="" >
+											<span></span>
+										</li>
+										{{/each}}
+									</script>
+									<div id="chooseColor"></div>
+									<script type="text/html" id="chooseColor_script">
+										{{each colors as value i}}
+										<span class="colorPiece" data-color={{value}} style="background-color: #{{value}}"></span>
+										{{/each}}
+									</script>
+								</li>
+							</ul>
+						</li>
+						<li class="has-sub active">
+							<a href=#>
+						    	<span>模板</span>
+							</a>
+							<ul class="sub-menu" id="templateA"></ul>
+							<script type="text/html" id="templateA_script">
+								{{each data as value i}}
+									{{if value.type !="-1"}}
+									<li class="sub-list">
+										<a href="#">
+											<span>{{value.name}}</span>
+										</a>
+										{{if value.name=="封面模板"}}
+										<ul class="sub-menu has-menu current" data-type={{value.type}}></ul>
+										{{else}}
+										<ul class="sub-menu has-menu" data-type={{value.type}}></ul>
+										{{/if}}
+									</li>
+									{{/if}}
+								{{/each}}
+							</script>
+							<script type="text/html" id="templateB_script">
+								{{each data as value i}}
+									<li data-id="{{value.id}}" data-uuid="{{value.uuid}}" data-md5="{{value.imgUrl}}"><img src="{{value.pic}}" alt=""></li>
+								{{/each}}
+							</script>
+						</li>
+						<li class="has-sub">
+							<a href=# data-type="-1">
+						    	<span>评价模板</span>
+							</a>
+							<ul class="sub-menu">
+								<li class="sub-list">
+									<ul class="sub-menu has-menu current" id="templateC" data-type="-1"></ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="canvas" class="active">
+			<span id="canvas-wrapper">
+				<div id="canvasBox">
+					<canvas id="canvasMain"></canvas>
+				</div>
+			</span>
+			<div id="editor">
+				<div id="editor-bar" class="editorBar" style="left: 120px; top: 180px; display: none;" data-direction="right">
+					<div class="barContent">
+						<p id="colorBtn" class="editor-tool-button" style="display: block;">
+							<span id="colorDiv"><i><span style="background: rgb(243, 241, 231) none repeat scroll 0% 0%;"></span></i></span>
+							<span class="editor-tool-button-tip left-tip" style="left: -56px;">颜色</span>
+						</p>
+						<p id="colorPanel" class="editor-tool-button" >
+							<input type="color" id="colorInput">
+						</p>
+						<p id="fontBtn" class="editor-tool-button" style="display: block;">
+							<i class="bar-icon-18"></i><span class="editor-tool-button-tip left-tip" style="left: -56px;">字体</span>
+						</p>
+						<p id="layerBtn" class="editor-tool-button" style="display: block;">
+							<i class="bar-icon-18"></i><span class="editor-tool-button-tip left-tip" style="left: -56px;">图层</span>
+						</p>
+						<p id="deleteBtn" class="editor-tool-button" style="display: block;">
+							<i class="bar-icon-18"></i><span class="editor-tool-button-tip left-tip" style="left: -56px;">删除</span>
+						</p>
+					</div>
+				</div>
+
+				<div id="layerPanel" class="editorPanel popover layerPanel right" style="left:165px; top: 170px; display: none;">
+					<div class="arrow" style="top: 31.3302px;"></div>
+					<div class="popover-content">
+						<div class="panelContent">
+							<div id="rotateTitleText" class="fotorPanel-title">图层</div>
+							<div class="fotorPanel-btns clearfix">
+								<div class="fotorPanel-btn">
+									<span id="layerBottomBtn" class="bar-icon-18 layerBottomBtn"></span>
+								</div>
+								<div class="fotorPanel-btn">
+									<span id="layerTopBtn" class="bar-icon-18 layerTopBtn"></span>
+								</div>
+								<div class="fotorPanel-btn">
+									<span id="layerDownBtn" class="bar-icon-18 layerDownBtn"></span>
+								</div>
+								<div class="fotorPanel-btn">
+									<span id="layerUpBtn" class="bar-icon-18 layerUpBtn"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="fontPanel" class="editorPanel popover right fontPanel" style="display: none;">
+					<div class="arrow"></div>
+					<div class="popover-content">
+						<div class="panelContent">
+							<div id="fontPanel-bar" class="clearfix ">
+								<span id="fontLeftBtn" class="editor-text-button bar-icon-18 fontLeftBtn"></span>
+								<span id="fontCenterBtn" class="editor-text-button bar-icon-18 fontCenterBtn"></span>
+								<span id="fontRightBtn" class="editor-text-button bar-icon-18 fontRightBtn"></span>
+								<span id="fontBoldBtn" class="editor-text-button bar-icon-18 fontBoldBtn"></span>
+								<span id="fontItalicBtn" class="editor-text-button bar-icon-18 fontItalicBtn"></span>
+								<span id="fontUnderlineBtn" class="editor-text-button bar-icon-18 fontUnderlineBtn"></span>
+							</div>
+							<div id="fontNameDropdown" class="select marginT10 clearfix">
+								<span class="dropdownValue"></span>
+								<i class="bar-icon-18 icon-arrow"></i>
+								<div class="font-name-list" style="overflow: hidden;" tabindex="0" id="">
+									<ul>			
+										<div id="noUselistLoading" class="fontLoadingIcon">
+											<div class="ball-spin-fade-loader">
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+												<div></div>
+											</div>
+										</div>
+										<li data-fontname="arial black">arial black</li>
+										<li data-fontname="宋体">宋体</li>
+										<li data-fontname="仿宋">仿宋</li>
+										<li data-fontname="楷体">楷体</li>
+										<li data-fontname="黑体">黑体</li>
+										<li data-fontname="微软雅黑">微软雅黑</li>
+										<!-- <li data-fontname="Aa夜茴体">Aa夜茴体</li> -->
+										<!-- <li data-fontname="新蒂小丸子体">新蒂小丸子体</li> -->
+										<!-- <li data-fontname="新蒂黑板报底字">新蒂黑板报底字</li>
+										<li data-fontname="字体管家Aa弯弯">字体管家Aa弯弯</li>
+										<li data-fontname="字体管家胖小儿">字体管家胖小儿</li> -->
+										<!-- <li data-fontname="字体管家方萌">字体管家方萌</li> -->
+										<!-- <li data-fontname="奇思悠然体">奇思悠然体</li>
+										<li data-fontname="奇思粗萌体">奇思粗萌体</li> -->
+									</ul>
+								</div>
+							</div>
+							<div id="fontSizeArea" class="marginT10 fotorPanel-title clearfix">
+								<div class="font-slider-left pull-left">
+									<span id="fontSizeSliderTitleText">字号：</span>
+									<input type="range" min="10" max="100" value="10">
+								</div>
+								<div class="font-slider-right pull-right">
+									<div id="fontSizeDropdown" class="select clearfix marginT5">
+										<input class="dropdownValue" type="tel"><i class="bar-icon-18 icon-arrow"></i>
+										<ul style="overflow: hidden;" tabindex="1">			
+											<li>10</li>			
+											<li>11</li>
+											<li>12</li>
+											<li>14</li>
+											<li>16</li>
+											<li>18</li>
+											<li>24</li>
+											<li>36</li>
+											<li>48</li>
+											<li>72</li>
+											<li>96</li>
+											<li>120</li>
+											<li>150</li>
+											<li>200</li>
+											<li>300</li>
+											<li>400</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="evaluate">
+			<span id="evaluate-wrapper">
+				<div id="evaluateBox">
+				</div>
+			</span>
+		</div>
+
+
+
+
+		<div id="recordList">
+			<div id="recordList-wrapper">
+				<h3>预览列表</h3>
+				<div id="recordOk">
+					<ul id="recordUl"></ul>
+				</div>
+				<script type="text/html" id="recordList_script">
+					{{each mbdanList as value i}}
+					<li data-id="{{value.id}}" data-pageidx="{{value.pageIdx}}">
+						{{if value.isMakeByChild != 0}}
+						<div class="recordImg recordImg01" data-id="{{value.id}}" data-pic="{{value.imgUrl}}">
+							<img src="{{value.pic}}" alt="">
+							<span class="deleteBtn" data-id="{{value.id}}" data-delete="{{value.canDelete}}"></span>
+						</div>
+						{{else}}
+						<div class="recordImg recordImg02" data-id="{{value.id}}" data-pic="{{value.imgUrl}}">
+							<img src="{{value.pic}}" alt="">
+							<span class="deleteBtn" data-id="{{value.id}}" data-delete="{{value.canDelete}}"></span>
+						</div>
+						{{/if}}
+						<div class="recordInfo">0{{i+1}}</div>
+					</li>
+					{{/each}}
+				</script>
+
+				<h3>
+					<span class="has-hover" style="top: 6px;left: 25px;"></span>
+					<span class="descInfo" style="top: -30px;left: 2px;">家长制作数量</span>
+					<span class="has-hover" style="top: 6px;left: 75px;"></span>
+					<span class="descInfo" style="top: -30px;left: 45px;">教师制作数量</span>
+				</h3>
+			</div>
+		</div>
+
+
+
+
+		<div id="autoMatch">
+			<div id="autoMatch-wrapper">
+				<h3>
+					<span><i></i>月图片列表</span>
+					<div></div>
+				</h3>
+				<div id="autoMatch-list">
+					<ul></ul>
+					<script type="text/html" id="autoMatch-list_script">
+						{{each data as value i}}
+						<li data-text="{{value.text}}">
+							<span class="matchTitle">{{value.day}}日</span>
+							{{each value.messageList as value01 j}}
+							<span class="matchPic" data-body="{{value01.body}}" data-id="{{value01.id}}" data-uuid="{{value01.uuid_}}" data-picarr="{{value01.picArr}}"><img src="{{value01.pic}}" alt=""></span>
+							{{/each}}
+						</li>
+						{{/each}}
+					</script>
+				</div>
+			</div>
+		</div>
+    </div>
+
+    <div id="saveEvaluate"></div>
+
+	<!-- #modal-dialog -->
+    <div class="modal fade" id="modal-dialog-qunzu" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content" id="picLib">
+            	<ul id="picTab" class="nav-tabs">
+    				<li class="active" data-tabId="1">
+        				<a href="#teachers" data-toggle="tab" aria-expanded="true">教师端图片</a>
+    				</li>
+    				<li data-tabId="2">
+    					<a href="#parents" data-toggle="tab" aria-expanded="false">家长端图片</a>
+    				</li>
+    				<li data-tabId="3">
+    					<a href="#upload" data-toggle="tab" aria-expanded="false">上传图片</a>
+    				</li>
+				</ul>
+				<div id="picTabContent" class="tab-content" style="clear: both;">
+    				<div class="tab-pane fade active in" id="teachers" data-tabid="1">
+						<div class="picQuery">
+							<span class="teaBtn">主题活动</span>
+							<label style="margin-bottom:3px">标签:
+      							<select size="1" name="data-table_length" aria-controls="data-table" id="labelList01"></select>
+    							<script type="text/html" id="labelList01_script">
+    								<option value="" selected="true">所有标签</option>
+    								{{each data as value i}}
+									<option value="{{value.id}}" data-labelid="{{value.id}}" >{{value.name}}</option>
+    								{{/each}}
+    							</script>
+      						</label>
+      						<span style="display: none;">观察记录</span>
+      						<label style="margin-bottom:3px">学生:
+      							<select id="student01"></select>
+    							<script type="text/html" id="student_script">
+    								<option value="" selected="true">所有学生</option>
+    								{{each data as value i}}
+									<option value="{{value.userUuid}}" data-useruuid="{{value.userUuid}}" >{{value.userName}}</option>
+    								{{/each}}
+    							</script>
+      						</label>
+						</div>
+						<div class="query2016">
+							<span data-value="2016">2016</span>
+						</div>
+						<span class="query2017"></span>
+						<script type="text/html" id="query2017_script">
+							<span data-value="2017">2017</span>
+							{{each month as value i}}
+							<span class="month" data-value="{{value}}">{{value}}月</span>
+							{{/each}}
+						</script>
+						<div class="picMain">
+							<ul></ul>
+						</div>
+						<script type="text/html" id="picMain_script">
+							{{each data as value i}}
+							<li>
+								<div class="picTitle">{{value.day}}日</div>
+								<ul class="picBody">
+									{{each value.picList as value01 j}}
+									<li data-md5="{{value01}}"><img src="{{value.path}}{{value01}}&Thumbnail=1" alt=""></li>
+									{{/each}}
+								</ul>
+							</li>
+							{{/each}}
+						</script>
+
+    				</div>
+
+    				<div class="tab-pane fade" id="parents" data-tabid="2">
+        				<div class="picQuery">
+							<span class="teaBtn">主题活动</span>
+							<label style="margin-bottom:3px">标签:
+      							<select size="1" name="data-table_length" aria-controls="data-table" id="labelList02"></select>
+      						</label>
+      						<span style="display: none;">观察记录</span>
+      						<label style="margin-bottom:3px;display: none;">学生:
+      							<select id="student02"></select>
+      						</label>
+						</div>
+						<div class="query2016">
+							<span data-value="2016">2016</span>
+						</div>
+						<span class="query2017"></span>
+						<div class="picMain"><ul></ul></div>
+    				</div>
+
+    				<div class="tab-pane fade" id="upload" data-tabid="3">
+        				<div class="picMain">
+        					<div class="uploadBg">
+        						<img src="images/uploading.png" alt="">
+        						<div></div>
+        						<span id="addBtn">请上传图片</span>
+        					</div>
+							<ul></ul>
+						</div>
+						<script type="text/html" id="picMain01_script">
+							{{each data as value i}}
+							<li>
+								<div class="picTitle">{{value.day}}日</div>
+								<ul class="picBody">
+									{{each value.picList as value01 j}}
+									<li data-md5="{{value01}}"><img src="{{value.path}}{{value01}}&Thumbnail=1" alt=""></li>
+									{{/each}}
+									{{if i == 0}}
+									<li class="addBtn01"></li>
+									{{/if}}
+								</ul>
+							</li>
+							{{/each}}
+						</script>
+    				</div>
+				</div>
+				<span id="picBtn">确定</span>
+            </div>
+            <span class="closeBtn" data-dismiss="modal" ></span>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-dialog-match" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content picLib">
+				<div class="tab-content" style="clear: both;">
+					<div class="picMain">
+						<ul id="matchList" class="picBody"></ul>
+					</div>
+					<script type="text/html" id="picMatch_script">
+						{{each arr as value i}}
+						<li data-md5="{{value}}"><img src="{{path}}{{value}}&Thumbnail=1" alt=""></li>
+						{{/each}}
+					</script>
+				</div>
+				<label><input type="checkbox">全选</label>
+				<span id="matchBtn">确定</span>
+            </div>
+            <span class="closeBtn" data-dismiss="modal" ></span>
+        </div>
+    </div>
+
+    <!-- #modal-dialog -->
+    <div class="modal fade" id="modal-copy" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            	<div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">请选择学生</h4>
+            	</div>
+                <div class="modal-body">
+                    <ul id="classMembers"></ul>
+                    <script type="text/html" id="classMembers_script">
+                    	{{each data as value i}}
+                    	<li>
+							<div class="membersBg" style="background-image: url({{value.portrait}})" data-useruuid="{{value.userUuid}}" data-username="{{value.userName}}" data-userphoto="{{value.userPhoto}}" data-bookid="{{value.needCreate}}"></div>
+							<div class="membersTitle">{{value.userName}}</div>
+						</li>
+						{{/each}}
+                    </script>
+                </div>
+                <div class="modal-footer">
+                	<label><input type="checkbox">全选</label>
+                    <button type="button" class="btn btn-primary" id="copyBtn">确定</button>
+                </div>
+            </div>
+            <span class="closeBtn" data-dismiss="modal"></span>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        请新建档案名称
+                    </h4>
+            </div>
+                <div class="modal-body">
+                    <label><span>档案名称：</span><input type="text" id="bookName" placeholder="请输入档案册名称"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="finalBtn">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    
+	<script src="js/jquery-1.11.1.min.js" charset="utf-8"></script>
+	<script src="js/jquery.nicescroll.min.js" charset="utf-8"></script>
+	<script src="js/dropzone.min.js"  charset="utf-8"></script><!-- 上传插件 -->
+    <script src="js/jquery.toast.min.js" charset="utf-8"></script><!-- 消息提示插件 -->
+    <script src="js/sweetalert.min.js" charset="utf-8"></script><!-- 消息提示插件 -->
+	<script src="js/fabric.min.js" charset="utf-8"></script>
+	<script src="js/html2canvas.min.js" charset="utf-8"></script>
+	<script src="js/bootstrap.min.js" charset="utf-8"></script>
+	<script src="js/template.js" charset="utf-8"></script>
+	<script src="js/base.js" charset="utf-8"></script>
+	<script src="js/Sortable.min.js" charset="utf-8"></script>
+	<script src="js/memberRecord.js" charset="utf-8"></script>
+</body>
+</html>
+		

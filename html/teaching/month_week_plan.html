@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>月周计划</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" href="../favicon.png">
+	
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+	<link href="../../css/teaching/month_week.css" rel="stylesheet" />
+    <script src="../../js/common/vue.js"></script>
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class"></i>班级页面<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class">{{classItems.curClass}}</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img v-bind:src="curUser.portraitId" alt="" /> 
+							<span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="{{logoutHttp}}">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">教学管理</li>
+			</ol>
+			<!-- end breadcrumb -->
+
+			<!-- begin page-header -->
+			<h1 class="page-header">预设计划&nbsp;&nbsp;<small>月周计划</small></h1>
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<div class="row" id="row">
+                <div class="panel panel-inverse">
+                    <div class="panel-body" >
+                        
+                        <!--begin 月周计划 -->
+                        <div class="ysjh-yzjh-header">
+	                        <div class="col-md-12 pull-left">
+	                            <p>
+	                            <a class="btn btn-primary btn-sm" id="yzjh-upload">上传</a>
+	                            <a class="btn btn-white btn-sm" id="yzjh-down">下载</a>
+	                            <a class="btn btn-white btn-sm" id="preview">预览<span>双击可预览</span></a>
+	                            <a class="btn btn-white btn-sm" id="yzjh-delete">删除</a>
+	                            <a class="btn btn-white btn-sm" id="modialog-cmm">重命名</a>
+	                            <a class="btn btn-white btn-sm" id="modialog-xz">新建文件夹</a>
+	                            <a class="btn btn-white btn-sm" id="mwp-qx"><i class="fa fa-square-o"></i> 全选</a>
+	                            </p>
+	                        </div>
+	                        <div class="clearfix"></div>
+                        </div>
+                        
+                        <!-- #modal-dialog -->
+						<div class="modal fade" id="modal-dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h4 class="modal-title">重命名</h4>
+									</div>
+									<div class="modal-body">
+										<form class="form-horizontal">     	
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label ui-sortable">文件（夹）名称</label>
+                                                <div class="col-md-9 ui-sortable">
+                                                    <input class="form-control" placeholder=" " type="text">
+                                                    <p class="text-danger"></p>
+                                                </div>
+                                            </div>
+                       					</form>
+									</div>
+									<div class="modal-footer">
+										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">关闭</a>
+										<a href="javascript:;" class="btn btn-sm btn-success">保存</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+                        <!-- #modal-dialog2 -->
+						<div class="modal fade" id="modal-dialog2">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h4 class="modal-title">新建文件夹</h4>
+									</div>
+									<div class="modal-body">
+										<form class="form-horizontal">     	
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label ui-sortable">文件夹名称</label>
+                                                <div class="col-md-9 ui-sortable">
+                                                    <input class="form-control" placeholder=" " type="text">
+                                                    <p class="text-danger"></p>
+                                                </div>
+                                            </div>
+                       					</form>
+									</div>
+									<div class="modal-footer">
+										<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">关闭</a>
+										<a href="javascript:;" class="btn btn-sm btn-success">新建</a>
+									</div>
+								</div>
+							</div>
+						</div>
+                        
+                        <div class="col-md-12 ysjh-yzjh-navgition">
+                        	<i class="fa fa-folder-open-o"></i>
+                        	<ul>
+								<li>根目录</li>
+                        	</ul>
+                        	<div id="fh-back">返回上一级</div>
+                        </div>
+                        <!-- 上传进度条 -->
+                        <div class="progress ysjh-yzjh-progress">
+						  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: 0"></div>
+						</div>
+                        <!--end 上传进度条 -->
+                        <div class="col-md-12 ysjh-yzjh-list">
+                    		<div id="todolist-wrap"></div>
+	                    	<script type="text/html" id="todolist">
+	                        	<ul class="todolist">
+                           	 		{{each data as item i}}
+										<li data-fileuuid={{item.fileuuid}} data-filemd5={{item.filemd5}} class={{item.fileext}}>
+											<a class="todolist-container"><div class="todolist-input"><i class="fa fa-square-o"></i></div></a>
+											<a class="todolist-content"><div class="todolist-title"><span title={{item.filename}}>{{item.filename}}</span></div></a>
+										</li>
+                                	{{/each}}
+	                        	</ul>
+	                        </script>
+                        </div>
+                        
+                        <!--end 月周计划 -->
+                         
+                    </div>
+            	</div> 
+            </div>
+            <!-- end row -->
+		
+		
+		    <!-- begin scroll to top btn -->
+		    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		    <!-- end scroll to top btn -->
+	    </div> 
+        <!-- end #content -->
+
+    <!-- #modal-dialog -->
+    <div class="modal fade" id="modal-dialog-img" tabindex="0">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="carousel_img"></div>
+                <span class="closeBtn" data-dismiss="modal"></span>
+            </div>
+        </div>
+    </div>
+
+
+    
+	<script src="../../js/jquery-1.11.1.min.js"></script>
+	<script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	<script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	<script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    
+ 	<script src="../../js/apps.js"></script>
+	<script src="../../js/template.js" ></script>
+	<script src="../../js/common/base.js" ></script>
+    <script src="../../js/common/dropzone.min.js" ></script><!-- 上传插件 -->
+	<script src="../../js/teaching/month_week_plan.js"></script>
+</body>
+</html>

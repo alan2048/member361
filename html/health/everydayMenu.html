@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>每周菜谱</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" href="../favicon.png">
+    
+    <link href="../../css/common/jquery.toast.min.css" rel="stylesheet" />
+	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="../../css/style.css" rel="stylesheet" />
+	<link href="../../plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+	<link href="../../css/health/everydayMenu.css" rel="stylesheet" />
+	<script src="../../js/common/vue.js"></script>    
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand" data-curcompany-id="{{curCompany.id}}"><span class="navbar-logo"></span> {{curCompany.name}}</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<form class="navbar-form full-width">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Enter keyword" />
+								<button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class"></i>班级页面<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.theme}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+							<i class="header-class">{{classItems.curClass}}</i> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu media-list pull-right animated fadeInDown" ng-app="" ng-controller="">
+                            <li class="media" v-for="item in classItems.classItems">
+                                <a href="{{item.class}}">
+                                    <div class="media-body">
+                                        <div class="text-muted" data-curorglist-id="{{item.id}}">{{item.name}}</div>
+                                    </div>
+                                </a>
+                            </li>
+						</ul>
+					</li>
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<img v-bind:src="curUser.portraitId" alt="" /> 
+							<span class="hidden-xs"><strong>{{curUser.userName}}</strong> <span style="color:#999">{{curUser.jobTitle}}</span></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="javascript:;">学校管理</a></li>
+							<li class="divider"></li>
+							<li><a href="{{logoutHttp}}">注销</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<div data-scrollbar="true" data-height="100%">
+				<ul class="nav">
+					<li>
+						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
+					</li>
+                    <li class="has-sub" v-for="first in trees">
+						<a href={{first.url}}>
+						    <i class="fa" v-bind:class="first.iconUrl"></i>
+						    <b class="caret pull-right"></b>
+						    <span>{{first.description}}</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub" v-for="second in first.redisPermissionList">
+								<a href={{second.url}}><b class="caret pull-right"></b>{{second.description}}</a>
+								<ul class="sub-menu">
+									<li v-for="third in second.redisPermissionList">
+										<a href={{third.url}}>{{third.description}}</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end #sidebar -->
+
+
+
+		<!-- begin #content -->
+		<div id="content" class="content">
+
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right" id="breadcrumb">
+				<li><a href="javascript:;">{{curCompany.name}}</a></li>
+				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
+				<li class="active">每周菜谱</li>
+			</ol>
+			<!-- end breadcrumb -->
+
+			<!-- begin page-header -->
+			<h1 class="page-header">每周菜谱</h1>
+			<!-- end page-header -->
+			
+			<div class="row">
+			    <div class="col-md-10">
+                    <div class="email-btn-row hidden-xs" style="display:inline-block">
+                        <a class="btn btn-sm btn-inverse" id="newMenu">新增菜谱</a>
+                        <a class="btn btn-sm btn-default" id="editMenu">编辑<span class="hoverBtn">双击单元格可编辑</span></a>
+                        <a class="btn btn-sm btn-default" id="editLine">新增行</a>
+                        <a class="btn btn-sm btn-default" id="deleteLine">删除行</a>
+                        <a class="btn btn-sm btn-default" id="newCol">新增列</a>
+                        <a class="btn btn-sm btn-default" id="deleteCol">删除列</a>
+                        <a class="btn btn-sm btn-default" id="deleteMenu">删除表格</a>
+                    </div>
+                
+                    <div class="panel panel-inverse">
+						<div class="panel-body">
+							<div id="menuMain"></div>
+							<div style="text-align: right;">
+								<span class="btn btn-success" id="saveBtn">保存</span>
+								<span class="btn btn-quit">取消</span>
+							</div>
+                            <script type="text/html" id="menuMain_script">
+								<h3 class="conTitle" style="" data-json="{{json}}">{{title}}</h3>
+								<div class="conTime">{{startTime}}至{{endTime}}</div>
+                            	<table class="table health-info">
+                            		<thead>
+							    	{{each data as value i}}
+							    		{{if i ==0}}
+							    		<tr>
+											{{each value as value01 j}}
+											<th>{{value01}}</th>
+											{{/each}}
+							    		</tr>
+							    		{{/if}}
+							    	{{/each}}
+							    	</thead>
+									<tbody>
+							    	{{each data as value i}}
+							    		{{if i !=0}}
+							    		<tr>
+							    			{{each value as value01 j}}
+											<td>{{value01}}</td>
+											{{/each}}
+							    		</tr>
+							    		{{/if}}
+							    	{{/each}}
+							    	</tbody>
+								</table>
+                            </script>
+						</div>
+                    </div>
+            	</div>
+            	
+			</div>
+			
+			<div id="menuList">
+					<div class="hideBtn"><span>菜谱列表</span></div>
+					<ul id="menu"></ul>
+					<script id="menu_script" type="text/html">
+						{{each data as value i}}
+							<li data-startdate="{{value.startdate}}" data-json="{{value.json}}">
+								<span class="menuIcon">{{i+1}}</span>
+								<span class="menuTitle">{{value.title}}</span>
+								<span class="menuTime">{{value.startTime}}</span>
+							</li>
+						{{/each}}
+					</script>
+            </div>
+		
+		    <!-- begin scroll to top btn -->
+		    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		    <!-- end scroll to top btn -->
+	    </div> 
+        <!-- end #content -->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新建菜谱
+                    </h4>
+            	</div>
+                <div class="modal-body">
+                	<div class="form-group">
+                		<label class="col-md-2 control-label ui-sortable">标题：</label>
+                        <label class="col-md-10 control-label ui-sortable"><input type="text" style="width: 100%;height: 30px;" id="healthTitle" class="fill"></label>
+                    </div>
+                	<div class="form-group">
+                        <label class="col-md-2 control-label ui-sortable">日期：</label>
+                        <div class="col-md-10 ui-sortable">
+                          	<div class="input-group input-daterange" style="float:left;margin-bottom:12px">
+                           		<input id="planBegintime" data-date-format="yyyy-mm-dd" class="form-control fill" name="start" placeholder="开始日期" type="text">
+                           		<span class="input-group-addon">至</span>
+                           		<input id="planEndtime" class="form-control fill" name="end" placeholder="结束日期" type="text">
+                          	</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    	<label class="col-md-2 control-label ui-sortable">行数：</label>
+                        <label class="col-md-4 control-label ui-sortable"><input type="number" value="6" id="healthLine" min="1"></label>
+                        <label class="col-md-2 control-label ui-sortable">列数：</label>
+                        <label class="col-md-4 control-label ui-sortable"><input type="number" value="5" id="healthCol" min="1"></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="finalBtn">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+
+
+	<script src="../../js/jquery-1.11.1.min.js"></script>
+	<script src="../../js/common/jquery.form.min.js"></script>
+	<script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>
+	<script src="../../plugins/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+	<script src="../../plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="../../plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    
+ 	<script src="../../js/apps.js"></script>
+	<script src="../../js/template.js" ></script>
+	<script src="../../js/common/base.js" ></script>
+	<script src="../../js/teaching/jquery.nicescroll.min.js"></script>
+	<script src="../../js/common/jquery.toast.min.js"></script>
+	<script src="../../js/health/everydayMenu.js"></script>
+</body>
+</html>

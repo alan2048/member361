@@ -1,0 +1,54 @@
+#preview{
+	position: relative;
+}
+#preview >span{
+	display: none;
+	position: absolute;
+	background-color: #000;
+	padding: 6px;
+	left: 5px;
+	top:35px;
+	color: #fff;
+}
+#preview.current >span{
+	display: inline-block;
+}
+@media (min-height: 100px){
+	#modal-dialog-img .modal-dialog {
+		width: 350px;
+		margin: 90px auto;
+	}
+}
+@media (min-height: 500px){
+	#modal-dialog-img .modal-dialog {
+		width: 600px;
+		margin: 90px auto;
+	}
+}
+@media (min-height: 900px){
+	#modal-dialog-img .modal-dialog {
+		width: 800px;
+		margin: 90px auto;
+	}
+}
+#carousel_img {
+	text-align: center;
+	height: 100%;
+	padding: 2%;
+	vertical-align:middle;
+}
+#carousel_img img {
+	max-height: 100%;
+	max-width: 100%;
+	vertical-align:middle;
+}
+.closeBtn {
+	display: inline-block;
+	cursor: pointer;
+	width: 50px;
+	height: 50px;
+	background: url(../../img/teaching/closeBtn.png) no-repeat center center;
+	position: absolute;
+	top: -26px;
+	right: -30px;
+}

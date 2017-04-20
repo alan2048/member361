@@ -1,0 +1,415 @@
+.row > .panel > .panel-body{
+	padding: 30px;
+	min-height: 540px;
+}
+#wacthtree{
+	box-sizing: border-box;
+	border: 1px solid #e2e7eb;
+	overflow: hidden;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	position: relative;
+}
+#trees{
+	width: 200px;
+	height: 100%;
+	min-height: 680px;
+	background-color: #6e7179;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	overflow: hidden; 
+	float: left;
+}
+#wacthtree ul,#wacthtree li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#trees .has-sub01.active > .sub-menu01{
+	display: block;
+}
+#trees .sub-menu01{
+	display: none;
+}
+#trees >ul >li.has-sub01{
+	background-color: #13b5dd;
+	color: #fff;
+	text-align: center;
+	line-height: 36px;
+	border-bottom: 1px solid #5f6269;
+	cursor: pointer;
+}
+#trees >ul >li.has-sub01 li.addbtn{
+	background: url(../../img/addbtn.png) no-repeat center center;
+	background-color: #6e7179;
+	border: 2px dashed #8b8f99;
+	margin:2px;
+	line-height: 32px;
+	height: 32px;
+}
+#trees >ul >li.has-sub01 li.addbtn:hover{
+	background-color: #a2a6b3;
+}
+#trees li.maxAddBtn{
+	background: url(../../img/maxAddBtn.png) no-repeat center center;
+	background-color: #6e7179;
+	border: 2px dashed #13b5dd;
+	margin:2px;
+	line-height: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+#trees li.level01input{
+	display: none;
+	height: 32px;
+	color: #aaa;
+}
+#trees li.level01input input{
+	width:100%;
+	height: 100%;
+	color: #aaa;
+}
+#trees li.maxAddBtn:hover{
+	background-color: #67909b;
+}
+#trees .sub-menu01 >li >a:hover{
+	background-color: #a2a6b3;	
+}
+#trees >ul >li.has-sub01{
+	background-color: #6e7179;
+}
+#trees >ul >li.has-sub01 >a b{
+	float: right;
+	margin-right: 15px;
+}
+#trees li.has-sub02{
+	background-color: #6e7179;
+	border-bottom: 1px solid #5f6269;
+	position: relative;
+}
+#trees li.has-sub02 span.deleteBtn {
+	display: inline-block;
+	position: absolute;
+	right: 5px;
+	background: url(../../img/delete.png) no-repeat center center;
+	width: 10px;
+	height: 10px;
+	z-index: 2;
+	top: 14px;
+	display: none;
+}
+#trees li.has-sub02 span.deleteBtn:hover {
+	background-color: rgba(245,245,245,0.6);
+}
+#trees > ul >li.has-sub01 a{
+	color: #fff;
+	display: block;
+}
+#trees > ul li.has-sub02 >a:hover{
+	background-color: #a2a6b3 !important;
+}
+#trees .showOther a{
+	margin-bottom: 10px;
+}
+#trees > ul >li.has-sub01 >a{
+	background-color: #13b5dd;
+}
+#trees li.has-sub01 a:hover,#trees li.has-sub01 a:focus{
+	text-decoration: none;
+}
+#trees .showOther{
+	position: absolute;
+	z-index: 10;
+	left: 240px;
+	top: 25px;
+	color: #000;
+}
+#trees ul.showOther >li{
+	float: left;
+}
+#trees ul.showOther li.list{
+	height: 32px;
+	background-color: #a2a6b3;
+	border-radius: 3px;
+	color: #fff;
+	margin-right: 20px;
+	line-height: 32px;
+	padding: 0 18px;
+	overflow: visible;
+	margin-bottom: 10px;
+}
+#trees ul.showOther li.list:hover{
+	background-color: #13b5dd;
+}
+#trees .tree-menu{
+	display: none;
+}
+#trees ul.showOther >li.list:hover,#trees ul.showOther >li.list:focus{
+	background-color: #13b5dd;
+}
+ul.showOther li.leftArrow{
+	display: inline-block;
+	width:40px;
+	height:32px;
+	line-height: 32px;
+	background: url(../../img/leftArrow.png) no-repeat 0 center;
+}
+ul.showOther li.rightArrow{
+	display: inline-block;
+	width:80px;
+	height:32px;
+	line-height: 32px;
+	background: url(../../img/rightArrow.png) no-repeat center center;
+}
+ul.showOther li.addsmall{
+	display: inline-block;
+	width:32px;
+	height:32px;
+	line-height: 32px;
+	background: url(../../img/addsmall.png) no-repeat center center;
+	border: 2px dashed #cfd4e6;
+}
+#trees .tree-menu li{
+	float: left;
+}
+
+
+
+@media (min-width: 768px){
+	#treesbody{
+		float: right;
+		margin-right: 30px;
+		width: 60%;
+	}	
+}
+@media (min-width: 1230px){
+	#treesbody{
+		float: right;
+		margin-right: 70px;
+		width: 70%;
+	}	
+}
+#descTrees{
+	width:100%;
+	height: 375px;
+	padding: 20px;
+	border: 1px solid #cfd4e6;
+	border-radius: 3px;
+	overflow-x: scroll;
+}
+#descTrees > ul> li{
+	float: left;
+	width:225px;
+	margin-right: 12px;
+	border-radius: 3px;
+	overflow: hidden;
+}
+#descTrees .descList .descTitle{
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	color: #fff;
+	background-color: #a2a6b3;
+}
+#descTrees .descList .descContext{
+	height: 200px;
+	color: #666;
+	font-size: 12px;
+	background-color: #ebebeb;
+	padding: 20px;
+	margin-bottom:3px; 
+	border-bottom-left-radius:3px;
+	border-bottom-right-radius: 3px;
+	position: relative; 
+}
+#descTrees .descList .descContext span:first-of-type{
+	width:160px;
+}
+#descTrees .descListlast{
+	cursor: pointer;
+	box-sizing: border-box;
+	border-radius: 3px;
+	min-height: 230px;
+	border: 2px dashed #cfd4e6;
+	background: url(../../img/add.png) no-repeat center center;
+}
+#treesbody .treesbodytitle .downIcon{
+	display: inline-block;
+	float: right;
+	width:40px;
+	height: 32px;
+	background: url(../../img/down.png) no-repeat center center;
+	background-color: #d9e0e7;
+	border-radius: 3px;
+	cursor: pointer;
+}
+#treesbody .treesbodytitle span:first-of-type{
+	display: inline-block;
+	height: 32px;
+	line-height: 32px;
+}
+.treesbodytitle {
+	width: 100%;
+	height: 32px;
+}
+
+
+.btn.finalbtn {
+	width: 100px;
+	margin-top: 20px;
+}
+#descTrees .deschover {
+	display: none;
+	cursor:pointer;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: 0;
+	background: url(../../img/maxAddBtn.png) no-repeat center center;
+	background-color: rgba(180,180,180,0.6);
+}
+#treesmain .tree-menu{
+	/*display: none;*/
+}
+#treesmain .tree-menu li{
+	float: left;
+}
+#treesmain ul{
+	clear: both;
+}
+#treesmain ul li.list {
+	height: 32px;
+	background-color: #a2a6b3;
+	border-radius: 3px;
+	color: #fff;
+	margin-right: 20px;
+	line-height: 32px;
+	overflow: visible;
+	margin-bottom: 10px;
+}
+#treesmain ul li.level01input{
+	display: none;
+}
+#treesmain ul li.level01input input {
+	height: 32px;
+	margin-right: 20px;
+}
+#treesmain ul li.list:hover{
+	background-color: #13b5dd;
+}
+#treesmain ul li.list.current{
+	background-color: #13b5dd;
+}
+#treesmain > ul > li.list a {
+	color: #fff;
+	display: block;
+	padding: 0 18px;
+	position: relative;
+}
+#treesmain > ul > li.list a input{
+	position: absolute;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+#treesmain ul li.leftArrow {
+	display: inline-block;
+	width: 40px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../../img/leftArrow.png) no-repeat 0 center;
+}
+#treesmain ul li.addsmall {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../../img/addsmall.png) no-repeat center center;
+	border: 2px dashed #cfd4e6;
+	cursor: pointer;
+}
+#treesmain ul li.rightArrow {
+	display: inline-block;
+	width: 80px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../../img/rightArrow.png) no-repeat center center;
+}
+#descTrees .descTitle span:first-of-type{
+	float: left;
+	margin-left: 80px;
+}
+#descTrees .descTitle span.closeBtn{
+	float:right;
+	margin:6px 10px 0 0; 
+	cursor: pointer;
+	background: url(../../img/delete.png) no-repeat center center;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	display: none;
+}
+#descTrees .descList .descContext input{
+	display: none;
+	position: absolute;
+	width: 100%;
+	height:100%;
+	top:0;
+	left:0;
+}
+a:hover{
+	text-decoration: none;
+}
+
+
+
+
+
+#menu {
+	width: 180px;
+	background-color: #fff;
+	font-size: 12px;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	padding-left: 0;
+	border: 1px solid #ccc;
+	display: none;
+	border-radius: 3px;
+	overflow: hidden;
+}
+#menu li {
+	list-style: none;
+	line-height: 25px;
+	margin-left: -1px;
+	cursor: pointer;
+	text-indent: 26px;
+}
+#menu li.delete{
+	display: none !important;
+}
+#menu li:hover{
+      background-color: #4281f4;
+      color: #fff;
+    }
+#menu li.edit > input{
+	margin-left: -26px;
+	display: none;
+	width: 100%;
+}
+#menu li.edit >span{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	margin-left: -26px;
+}
+#menu li.edit > input.current{
+	display: inline-block;
+}
+#menu li.edit > input:hover{
+	color: #000;
+}
+
