@@ -12,7 +12,6 @@ function loginSuccess() {
         var aa=$(".textbox-invalid").length;
         if(aa==0){
             AddHealthColumnInfo_port();
-            $(this).off();
         }else{
             alert('请先将红色区域的必填项补充完成。。')
         }
