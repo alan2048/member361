@@ -228,7 +228,7 @@ function permission_port(callback01) {
             },
             error:function(result){
                 console.log("请求失败 error!");
-                window.location.href=httpUrl.loginHttp;
+                // window.location.href=httpUrl.loginHttp;
             }
     });
 };
