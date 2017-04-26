@@ -97,7 +97,7 @@ function echart_A01(id,json,curName){
     var option={
             backgroundColor: '#161627',
             title: {
-                text: '个人综合能力—'+data.name,
+                text: '发展水平—'+data.name,
                 left: 'center',
                 textStyle: {
                     color: '#eee',
@@ -296,7 +296,7 @@ function echart_A03(id,json,curName){
     var option={
             backgroundColor: '#161627',
             title: {
-                text: '个人课程能力水平—'+data.name,
+                text: '游戏与生活观察—'+data.name,
                 left: 'center',
                 textStyle: {
                     color: '#eee',

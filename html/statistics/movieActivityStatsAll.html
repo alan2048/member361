@@ -5,7 +5,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<title>班级游戏与生活观察</title>
+	<title>剧院活动综合统计</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -128,11 +128,11 @@
 			<ol class="breadcrumb pull-right" id="breadcrumb">
 				<li><a href="javascript:;">{{curCompany.name}}</a></li>
 				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
-				<li class="active">班级游戏与生活观察</li>
+				<li class="active">剧院活动综合统计</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">班级游戏与生活观察&nbsp;&nbsp;</h1>
+			<h1 class="page-header">剧院活动综合统计&nbsp;&nbsp;</h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->
@@ -142,34 +142,12 @@
 			            <div class="input-group m-b-20">
                             <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
                             	<div id="data-table_length" class="dataTables_length">
-      								<label style="margin-bottom:3px">年级：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="range02">
-       						 				<option value="1">托班</option>
-      						 				<option value="2">小班</option>
-      						 				<option value="3">中班</option>
-      						 				<option value="4" selected="selected">大班</option>
-    									</select>
-      								</label>
-      								<label style="margin-bottom:3px">课程：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="course"></select>
-    									<script type="text/html" id="course_script">
+                            		<label style="margin-bottom:3px">
+      									分园切换：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="school"></select>
+    									<script type="text/html" id="school_script">
     										{{each data as value i}}
-											<option value="{{value.id}}" data-id="{{value.id}}">{{value.name}}</option>
-    										{{/each}}
-    									</script>
-      								</label>
-      								<label style="margin-bottom:3px">年份：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="year02">
-      										<option value="2016">2016年</option>
-      										<option value="2017">2017年</option>
-    									</select>
-      								</label>
-      								<label style="margin-bottom:3px">关联月份：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="month02">
-    									</select>
-    									<script type="text/html" id="month_script">
-    										{{each month as value i}}
-											<option value="{{value}}">{{value}}月</option>
+											<option value="{{value.id}}">{{value.name}}</option>
     										{{/each}}
     									</script>
       								</label>
@@ -182,7 +160,7 @@
                 	</div>
                     <div class="panel panel-inverse">
                     	<div class="echartTabs">
-							<div class="title">班级游戏与生活观察</div>
+							<div class="title">剧院活动综合统计</div>
                 		</div>
                     	<div class="email-content" id="email-content02" style="height: 660px;width: 100%;"></div>
                     </div>
@@ -207,6 +185,6 @@
 	<script src="../../js/template.js" ></script>
 	<!-- <script src="../../plugins/echarts/echarts.js"></script> -->
 	<script src="../../plugins/echarts/echarts.min.js"></script>
-	<script src="../../js/statistics/classCourseStats.js"></script>
+	<script src="../../js/statistics/movieActivityStatsAll.js"></script>
 </body>
 </html>

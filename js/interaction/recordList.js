@@ -258,6 +258,20 @@ function recordStudent_callback(res) {
 
         
     }else{
+        if(res.info =="登录信息过期" || res.code == 404){
+            $.toast({
+                heading: "提示",
+                text: "登录信息过期,请重新登录。。",
+                showHideTransition: 'slide',
+                icon: 'success',
+                hideAfter: 2500,
+                loaderBg: '#13b5dd',
+                position: 'bottom-right',
+                afterHidden: function () {
+                    window.location.href=path;
+                }
+            });
+        }
         // console.log('请求错误，返回code非200');
     }
 }

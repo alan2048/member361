@@ -147,6 +147,7 @@ var httpUrl={
 		getCourseClassTJ:path+":15001/imsInterface/TSCourse_getCourseClassTJ",// 自选活动 班级统计 
 		getCourseStudentTJ:path+":15001/imsInterface/TSCourse_getCourseStudentTJ",// 自选活动 学生统计 
 		getCourseStudentDetailTJ:path+":15001/imsInterface/TSCourse_getCourseStudentDetailTJ",// 自选活动 活动统计详情 
+		getCourseAllTJ:path+":15001/imsInterface/TSCourse_getCourseAllTJ",// 自选活动 活动统计01
 
 		// 08设置
 		setting:'' 

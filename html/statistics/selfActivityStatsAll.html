@@ -5,7 +5,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<title>儿童能力统计</title>
+	<title>自选活动综合统计</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -16,7 +16,7 @@
 	<link href="../../plugins/bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="./font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" />
 	<link href="../../css/style.css" rel="stylesheet" />
-	<link href="../../css/stastistics/childrenStats.css" rel="stylesheet" />
+	<link href="../../css/stastistics/classStats.css" rel="stylesheet" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	<script src="../../js/common/vue.js"></script>    
 </head>
@@ -128,105 +128,28 @@
 			<ol class="breadcrumb pull-right" id="breadcrumb">
 				<li><a href="javascript:;">{{curCompany.name}}</a></li>
 				<li><a href="javascript:;">{{classItems.curClass}}</a></li>
-				<li class="active">儿童能力统计</li>
+				<li class="active">自选活动综合统计</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">儿童能力统计&nbsp;&nbsp;</h1>
+			<h1 class="page-header">自选活动综合统计&nbsp;&nbsp;</h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->
 			<div class="row" id="row">
-			    <div class="col-md-12">
-                    <div class="result-container">
-			            <div class="input-group m-b-20">
-                            <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
-                            	<div id="data-table_length" class="dataTables_length">
-      								<label style="margin-bottom:3px">
-      									班级：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="userClass">
-    									</select>
-    									<script type="text/html" id="userClass_script">
-    										{{each data as value i}}
-											<option value="{{value.classId}}" data-classid="{{value.classId}}" data-gradeid="{{value.gradeId}}">{{value.className}}</option>
-    										{{/each}}
-    									</script>
-      								</label>
-      								<label style="margin-bottom:3px">姓名：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="classMember"></select>
-    									<script type="text/html" id="classMember_script">
-    										{{each data as value i}}
-											<option value="{{value.id}}" data-id="{{value.id}}" data-portrait="{{value.portrait}}" data-useruuid="{{value.useruuid}}">{{value.userName}}</option>
-    										{{/each}}
-    									</script>
-      								</label>
-      								<label style="margin-bottom:3px">关联月份：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="month01">
-    									</select>
-    									<script type="text/html" id="month_script">
-    										{{each month as value i}}
-											<option value="{{value}}">{{value}}月</option>
-    										{{/each}}
-    									</script>
-      								</label>
-      								<label style="margin-bottom:3px">选择范围：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="range01">
-       						 				<option value="1" selected="selected">班级内</option>
-      						 				<option value="2">年级内</option>
-    									</select>
-      								</label>
-    							</div>
-                            </div>
-                            <div class="input-group-btn">
-                                <button id="btn01" type="button" class="btn btn-inverse" style="padding-top:10px; padding-bottom:10px"><i class="fa fa-search"></i> 查询</button>
-                            </div>
-                        </div>   
-                	</div>
-
-                	
-                    <div class="panel panel-inverse">
-                    	<div class="echartTabs">
-							<div class="title">个人综合能力水平</div>
-							<div class='sonTabs'>
-								<span class="current">专项评价</span>
-								<span>综合评价</span>
-							</div>
-                		</div>
-                    	<div class="email-content" id="email-content01" style="height: 660px;width: 100%;"></div>
-                    	<script type="text/html" id="echarts01A_script">
-                    		{{each dataA as value i}}
-                    		<br>
-							<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:rgba(224,173,198,1)"></span>
-							{{value.name}}-本月:{{value.dimScore}}
-							{{/each}}
-                    	</script>
-                    	<script type="text/html" id="echarts01B_script">
-                    		{{each dataB as value i}}
-                    		<br>
-							<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:rgba(111,205,230,1)"></span>
-							{{value.name}}-上月:{{value.dimScore}}
-							{{/each}}
-                    	</script>
-                    </div>
-            	</div>
-
-
             	<div class="col-md-12">
                     <div class="result-container">
 			            <div class="input-group m-b-20">
                             <div class="form-control input-white" style="padding-top:3px; padding-bottom:0px; min-height:34px; height:auto">
                             	<div id="data-table_length" class="dataTables_length">
-      								<label style="margin-bottom:3px">年级：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="range02">
-       						 				<option value="1">托班</option>
-      						 				<option value="2">小班</option>
-      						 				<option value="3">中班</option>
-      						 				<option value="4" selected="selected">大班</option>
-    									</select>
-      								</label>
-      								<label style="margin-bottom:3px">关联月份：
-      									<select size="1" name="data-table_length" aria-controls="data-table" id="month02">
-    									</select>
+                            		<label style="margin-bottom:3px">
+      									分园切换：
+      									<select size="1" name="data-table_length" aria-controls="data-table" id="school"></select>
+    									<script type="text/html" id="school_script">
+    										{{each data as value i}}
+											<option value="{{value.id}}">{{value.name}}</option>
+    										{{/each}}
+    									</script>
       								</label>
     							</div>
                             </div>
@@ -237,7 +160,7 @@
                 	</div>
                     <div class="panel panel-inverse">
                     	<div class="echartTabs">
-							<div class="title">班级综合能力水平</div>
+							<div class="title">自选活动综合统计</div>
                 		</div>
                     	<div class="email-content" id="email-content02" style="height: 660px;width: 100%;"></div>
                     </div>
@@ -260,8 +183,7 @@
 	<script src="../../js/apps.js"></script>
 	<script src="../../js/common/base.js" ></script>
 	<script src="../../js/template.js" ></script>
-	<!-- <script src="../../plugins/echarts/echarts.js"></script> -->
 	<script src="../../plugins/echarts/echarts.min.js"></script>
-	<script src="../../js/statistics/childrenStats.js"></script>
+	<script src="../../js/statistics/selfActivityStatsAll.js"></script>
 </body>
 </html>
