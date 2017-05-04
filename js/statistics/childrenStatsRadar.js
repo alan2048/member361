@@ -97,7 +97,7 @@ function echart_A01(id,json,curName){
     var option={
             backgroundColor: '#161627',
             title: {
-                text: '发展水平—'+data.name,
+                text: '领域发展水平—'+data.name,
                 left: 'center',
                 textStyle: {
                     color: '#eee',

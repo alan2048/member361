@@ -24,7 +24,17 @@ ul,li{
 }
 #members >li >.membersTitle{
 	text-align: center;
-	line-height: 36px;
+	cursor: pointer;
+}
+.unchecked{
+	display: inline-block;
+	line-height: 40px;
+	height: 40px;
+	padding-left: 25px;
+	background: url(../../img/teaching/unchecked.png) 0 center no-repeat;
+}
+.unchecked.checked{
+	background: url(../../img/teaching/checked.png) 0 center no-repeat;
 }
 #members >li >.membersBg{
 	display: block;
@@ -107,7 +117,7 @@ ul,li{
 	line-height: 50px;
 }
 .email-btn-row {
-	margin-bottom: 10px;
+	margin: 15px 0 0 0;
 }
 .closeBtn {
 	display: inline-block;
@@ -261,3 +271,4 @@ ul,li{
 	transition: all 0.3s;
 	opacity: 1;
 }
+

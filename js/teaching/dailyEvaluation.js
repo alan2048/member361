@@ -81,6 +81,8 @@ function loginSuccess() {
 
     changeClass();// 切班函数
 
+    exportAll();// 导出
+
     // niceScroll滚动条
     chooseNiceScroll("#modal-dialog-qunzu .first-content");
     chooseNiceScroll("#modal-dialog-qunzu .second-content");
@@ -504,3 +506,57 @@ function chooseNiceScroll(AA) {
         autohidemode: false //是否隐藏滚动条 
     });
 };
+
+// 导出
+function exportAll() {
+    // 单选
+    $("#members").on("click",".membersTitle",function () {
+        $(this).find("span").toggleClass("checked");
+    });
+    // 全选
+    $("#checkedAll").click(function () {
+        var n=0;
+        for(var i=0;i<$(".membersTitle >span").length;i++){
+            if(!$(".membersTitle >span").eq(i).hasClass("checked")){
+                n++;
+            }
+        };
+        if(n > 0){
+            $(".membersTitle >span").addClass("checked"); 
+        }else{
+            $(".membersTitle >span").removeClass("checked"); 
+        };
+    });   
+    // 导出
+    $("#export").click(function () {
+        if(!$("#year01").val()){
+            $.toast({
+                heading: 'Success',
+                text: '请先选择导出年份',
+                showHideTransition: 'slide',
+                icon: 'success',
+                hideAfter: 1500,
+                loaderBg: '#13b5dd',
+                position: 'bottom-right'
+            }); 
+        }
+        if(!$("#month01").val()){
+            $.toast({
+                heading: 'Success',
+                text: '请先选择导出月份',
+                showHideTransition: 'slide',
+                icon: 'success',
+                hideAfter: 1500,
+                loaderBg: '#13b5dd',
+                position: 'bottom-right'
+            }); 
+        }
+        if($("#year01").val() && $("#month01").val()){
+            var arr=[];
+            for(var i=0;i<$(".membersTitle >span.checked").length;i++){
+                arr.push($(".membersTitle >span.checked").eq(i).attr("data-useruuid"))
+            };
+            window.open(httpUrl.recordToWord+"?studentUuidList="+arr.join()+"&year="+$("#year01").val()+"&month="+$("#month01").val())
+        }  
+    });
+}

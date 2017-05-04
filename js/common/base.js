@@ -9,7 +9,7 @@ var serverHost="http://www.member361.com";
 
 var path01="http://172.168.90.101";//38测试服务器
 
-var path=serverUrl01; //更改服务器地址可设置此值
+var path=serverUrl02; //更改服务器地址可设置此值
 var httpUrl={
 		// 基础接口
 		loginId:getCookie("loginId"),
@@ -50,6 +50,7 @@ var httpUrl={
 		dailyEvaluationUpdate:path+"/jfinal_mbjy_sample/record/update", // 更新日常观察记录
 		dailyEvaluationDetail:path+"/jfinal_mbjy_sample/record/detail", // 日常评价详情
 		studentRecordList:path+"/jfinal_mbjy_sample/record/studentRecordList",//获取班级学生观察记录列表
+		recordToWord:path+"/jfinal_mbjy_sample/file/recordToWord",//导出学生观察记录
 
 		watchDimensions:path+"/jfinal_mbjy_sample/dim/list", // 观察维度树结构
 		dimSave:path+"/jfinal_mbjy_sample/dim/save",// 新增观察维度
