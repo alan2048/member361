@@ -9,7 +9,7 @@ var serverHost="http://www.member361.com";
 
 var path01="http://172.168.90.101";//38测试服务器
 
-var path=serverUrl02; //更改服务器地址可设置此值
+var path=serverUrl01; //更改服务器地址可设置此值
 var httpUrl={
 		// 基础接口
 		loginId:getCookie("loginId"),

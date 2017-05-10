@@ -552,11 +552,23 @@ function exportAll() {
             }); 
         }
         if($("#year01").val() && $("#month01").val()){
-            var arr=[];
-            for(var i=0;i<$(".membersTitle >span.checked").length;i++){
-                arr.push($(".membersTitle >span.checked").eq(i).attr("data-useruuid"))
-            };
-            window.open(httpUrl.recordToWord+"?studentUuidList="+arr.join()+"&year="+$("#year01").val()+"&month="+$("#month01").val())
+            if($(".membersTitle >span.checked").length >0){
+                var arr=[];
+                for(var i=0;i<$(".membersTitle >span.checked").length;i++){
+                    arr.push($(".membersTitle >span.checked").eq(i).attr("data-useruuid"))
+                };
+                window.open(httpUrl.recordToWord+"?studentUuidList="+arr.join()+"&year="+$("#year01").val()+"&month="+$("#month01").val())
+            }else{
+                $.toast({
+                    heading: 'Success',
+                    text: '请先选择导出的学生',
+                    showHideTransition: 'slide',
+                    icon: 'success',
+                    hideAfter: 1500,
+                    loaderBg: '#13b5dd',
+                    position: 'bottom-right'
+                }); 
+            }
         }  
     });
 }
