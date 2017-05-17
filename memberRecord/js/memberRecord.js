@@ -123,6 +123,9 @@ function savePic() {
             // 封面模板时再加载detail接口
             if(type==1){
                 recordPageDetail_port($("ul.has-menu >li.current").attr("data-id"));
+            }else{
+                $("#evaluate").removeClass("active");
+                $("#canvas").addClass("active");  
             };
     	});
     });
