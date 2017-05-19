@@ -326,6 +326,9 @@
                                 <div class="membersTitle">{{value.className}}—{{value.name}}</div>
                             </li>
                             {{/each}}
+                            <li class="addmembersBtn">
+                                <a class="membersNewBg" href="#modal-dialog-qunzu" data-toggle="modal" data-courseId="{{courseId}}" data-time="{{time}}"></a>
+                            </li>
                         </script>
                     </div>
                     <div style="clear:both;"></div>
@@ -361,6 +364,73 @@
         </div><!-- /.modal -->
     </div>
 	<!-- end page container -->
+
+    <div class="modal fade" id="modal-dialog-qunzu">
+        <div class="modal-dialog" style="width: 600px;">
+            <div class="modal-content">                                     
+                <div class="col-md-6" style="width:100%; margin-top:15px;">
+                    <ul class="nav nav-pills">
+                        <li class="active">
+                            <a href="#nav-pills-tab-1" data-toggle="tab">按部门发送</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" style="border:1px solid #e2e7eb; padding-bottom:0px;">
+                        <div class="tab-pane fade active in" id="nav-pills-tab-1">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:30%; padding:0px; border-top:0px;">
+                                            <div class="col-md-6" style=" width:100%; min-height:240px; border-right:1px solid #e2e7eb">    
+                                                <ul class="nav nav-tabs" style="background:none" id="allClass"></ul>
+                                                <script type="text/html" id="allClass_script">
+                                                    {{each data as value i}}
+                                                    <li style="width:100%">
+                                                        <a href="#default-tab-{{i+1}}" data-toggle="tab" style="float:left; width:100%" data-orgid="{{value.orgId}}" data-tab="{{i+1}}">{{value.orgName}}</a>
+                                                        <!-- <input value="" type="checkbox" style="float:right; margin-top:-25px;display: none;" data-orgid="{{value.orgId}}" data-tab="{{i+1}}"> -->
+                                                    </li>
+                                                    {{/each}}
+                                                </script>
+                                                <script type="text/html" id="allClassTab_script">
+                                                    {{each data as value i}}
+                                                        {{if i==0}}
+                                                        <div class="tab-pane fade active in" id="default-tab-{{i+1}}" data-orgid="{{value.orgId}}"></div>
+                                                        {{/if}}
+                                                        {{if i!=0}}
+                                                        <div class="tab-pane fade" id="default-tab-{{i+1}}" data-orgid="{{value.orgId}}"></div>
+                                                        {{/if}}
+                                                    {{/each}}
+                                                </script>
+                                            </div>
+                                        </td>
+                                        <td style="width:70%; padding:0px; border-top:0px;">
+                                            <div class="col-md-6" style="width:100%; padding-left:0px; padding-right:0px; background:none;">
+                                                <div class="tab-content" style="padding-right:0px" id="classMember"></div>
+                                                <script type="text/html" id="classMember_script">
+                                                    {{each data as value i}}
+                                                    <label class="checkbox-inline" style="margin: 5px 10px;width: 80px;">
+                                                        <input value="{{value.id}}" data-id="{{value.id}}" data-portrait="{{value.portrait}}" type="checkbox" >{{value.userName}}
+                                                    </label>
+                                                    {{/each}}
+                                                </script>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                <div class="modal-footer">
+                    <label style="float:left;display: none;">         
+                        <input value="" type="checkbox" id="chooseAll"> 全选
+                    </label>
+                    <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">取消</a>
+                    <a href="javascript:;" class="btn btn-sm btn-success" data-dismiss="modal" id="chooseMemberBtn">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<script src="../../plugins/jquery-1.11.1/jquery-1.11.1.min.js"></script>
 	<script src="../../plugins/jquery-ui-1.10.4/ui/minified/jquery-ui.min.js"></script>

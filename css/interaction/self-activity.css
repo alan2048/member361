@@ -36,6 +36,16 @@ ul,li{
 	background-image: url(../../img/teaching/showImg.png);
 	background-size: 100%;
 }
+#members >li.addmembersBtn >.membersNewBg{
+	display: block;
+	position: relative;
+	cursor: pointer;
+	width: 114px;
+	height: 114px;
+	border-radius: 16px;
+	background: #babec1 url(../../img/interaction/addBtn01.png) center center no-repeat;
+	background-size: 70%;
+}
 #members >li >.membersBg >div.firstArea{
 	text-align: center;
 	line-height: 110px;
@@ -473,4 +483,16 @@ input.form-control.fillnum.empty::-moz-placeholder{
 }
 input.form-control.fillnum.empty::-webkit-input-placeholder{
 	color: #ed6e6e !important;
+}
+.nav > li > a:hover{
+	background-color: #ccc;
+	border-radius: 4px;
+}
+.nav-tabs >li.active >a{
+	background-color: transparent !important;
+	border-radius: 4px;
+}
+.nav-tabs >li.active{
+	background-color: #ccc;
+	border-radius: 4px;
 }

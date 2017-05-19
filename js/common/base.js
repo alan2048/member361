@@ -116,7 +116,8 @@ var httpUrl={
 		tsGetBookedChildren:path+":15001/imsInterface/TSCourse_GetBookedChildren",// 签到学生列表
 		tsCallRoll:path+":15001/imsInterface/TSCourse_CallRoll",// 签到
 		tsCancelRoll:path+":15001/imsInterface/TSCourse_CancelRoll",// 取消签到
-		
+		tsTempBookCourse:path+":15001/imsInterface/TSCourse_tempBookCourse",// 补加预约人数
+
 		// 06消息发布
 		GetClassNotifyInfos:path+":12001/YY/GetClassNotifyInfos",// 获得班级活动列表
 		getUserClassInfo:path+":12001/YY/GetUserClassInfo",//获取用户班级信息

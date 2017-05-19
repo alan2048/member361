@@ -7,6 +7,7 @@ function loginSuccess() {
     GetSchoolIds_port();
     deletePic();
     loadFiles();
+    tsTempBookCourse();
 };
 function mousehover() {
     // 年度档案册hover效果
@@ -149,6 +150,7 @@ function mousehover() {
 
 
 
+
 // 获取园区ID
 function GetSchoolIds_port() {
     var data={
@@ -219,7 +221,8 @@ function tsGetBookedChildren_callback(res,json) {
                 time:json.time,
                 path:httpUrl.path_img
         };
-    
+        
+        // console.log(data01);
         var html=template("members_script",data01);
         $("#members").empty().append(html);
     }else{
@@ -495,4 +498,150 @@ function loadFiles() {
             alert('没有上传成功,请重试:'+errorMessage);
             this.removeFile(file);
         });
+};
+
+
+// 补加预约人数
+function tsTempBookCourse() {
+    //获取全部班级列表 
+    $("#members").on("click","li.addmembersBtn > a.membersNewBg",function () {
+        $("#classMember input:checked").prop("checked",false);
+        if($("#allClass li").length==0){
+            getAllClassInfo_port(); 
+        } 
+    });
+
+    // 点击班级链接班级成员项接口函数
+    $("#allClass").on("click","li > a",function () {
+        var tabIndex=$(this).attr("data-tab");
+        if($("#default-tab-"+tabIndex+" label").length==0){
+            var classId=$(this).attr("data-orgid");
+            getClassMemberInfo_port(classId,tabIndex);
+        }
+    });
+
+    // 点击班级全选按钮判断是否选择班级全体成员
+    $("#allClass").on("click","li > input",function () {
+        $(this).prev("a").click();
+        var tabIndex=$(this).attr("data-tab");
+        var ArrLabel=$("#default-tab-"+tabIndex+" label >input");
+        if($(this).is(":checked")){
+            $.each(ArrLabel,function (index,value) {
+                $(value).prop("checked",true);
+            });
+        }else{
+            $.each(ArrLabel,function (index,value) {
+                $(value).prop("checked",false);
+            });
+        }
+    });
+
+    // 班级成员项点击判断是否全选
+    $("#classMember").on("click","input",function () {
+        var parent=$(this).parents(".tab-pane").eq(0);
+        var AA=0;
+        $.each(parent.find("input"),function (index,value) {
+            if(!$(value).is(":checked")){
+                AA++;
+            }
+        });
+
+        var curOrgid=parent.attr("data-orgid");
+        if(AA>0){
+            $("#allClass input[data-orgid="+curOrgid+"]").attr("checked",false);
+        }else{
+            $("#allClass input[data-orgid="+curOrgid+"]").attr("checked",true);
+        }
+    });
+
+    // 全选按钮函数
+    $("#chooseAll").click(function () {
+        if($(this).is(":checked")){
+            $("#allClass li input").attr("checked",true);
+        }else{
+            $("#allClass li input").attr("checked",false);
+        }
+    });
+
+    // 判断是否选中通知成员
+    $("#chooseMemberBtn").click(function () {
+        var Arr=[];
+        for(var i=0;i<$("#classMember input:checked").length;i++){
+            Arr.push($("#classMember input:checked").eq(i).val());
+            tsTempBookCourse_port($("#classMember input:checked").eq(i).val());
+        };
+    });
+};
+
+// 获取全部班级列表
+function tsTempBookCourse_port(useruuid) {
+    var data={
+            courseId:$("#members >li.addmembersBtn >a").attr("data-courseid"),
+            useruuid:useruuid,
+            time:$("#members >li.addmembersBtn >a").attr("data-time")
+        };
+    var param={
+            params:JSON.stringify(data)
+    };
+    initAjax(httpUrl.tsTempBookCourse,param,tsTempBookCourse_callback,data);
+};
+function tsTempBookCourse_callback(res,json) {
+    if(res.code==200){
+        tsGetBookedChildren_port(json.courseId,json.time);
+    }else{
+        // console.log('请求错误，返回code非200');
+    }
+};
+
+
+// 获取全部班级列表
+function getAllClassInfo_port(pageNumber) {
+    var data={
+            companyid:user.curCompany.id
+        };
+    var param={
+            params:JSON.stringify(data)
+    };
+    initAjax(httpUrl.getAllClassInfo,param,getAllClassInfo_callback);
+};
+function getAllClassInfo_callback(res) {
+    if(res.code==200){
+        var data=JSON.parse(res.data);
+
+        var html=template("allClass_script",{data});
+        $("#allClass").append(html);
+        var html01=template("allClassTab_script",{data});
+        $("#classMember").append(html01);
+
+        if(data.length>0){
+            var firstOrgid=data[0].orgId;
+            getClassMemberInfo_port(firstOrgid,1);
+        }
+        
+    }else{
+        // console.log('请求错误，返回code非200');
+    }
+};
+// 获取班级成员信息
+function getClassMemberInfo_port(classId,tabIndex) {
+    var data={
+            classId:classId
+        };
+    var param={
+            params:JSON.stringify(data)
+    };
+    initAjax(httpUrl.getClassStudentInfo,param,getClassMemberInfo_callback,tabIndex);
+};
+function getClassMemberInfo_callback(res,tabIndex) {
+    if(res.code==200){
+        var data=JSON.parse(res.data);
+        var html=template("classMember_script",{data});
+        $("#classMember >#default-tab-"+tabIndex).append(html);
+        var aa=$("#allClass >li input[data-tab="+tabIndex+"]").is(":checked");
+        if(aa){
+            $("#classMember >#default-tab-"+tabIndex).find("input").attr("checked",true);
+        }
+    }else{
+        // console.log('请求错误，返回code非200');
+    }
 };
