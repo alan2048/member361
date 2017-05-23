@@ -335,6 +335,19 @@ function getRootFileUUID_callback(res) {
         };
         $(".ysjh-yzjh-navgition li").attr('data-fileuuid',uid.rootUUID);  //面包屑
         initAjax(httpUrl.getAllChildInfo,param,getAllChildInfo_callback,uid); 
+    }else if(res.code == 403){
+        $.toast({
+            heading: "提示",
+            text: res.info+",稍候将刷新以解决此故障",
+            showHideTransition: 'slide',
+            icon: 'success',
+            hideAfter: 2500,
+            loaderBg: '#13b5dd',
+            position: 'bottom-right',
+            afterHidden: function () {
+                location.reload();
+            }
+        });
     }else{
         console.log('请求错误，返回code非200');
     }

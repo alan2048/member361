@@ -622,10 +622,11 @@ function savePic() {
         // 评价模板保存
         if($("#evaluate").hasClass("active")){
             $("#saveEvaluate").empty().width($("#evaluateBox .temark1").width()).append($("#evaluateBox .temark1").clone());
-            html2canvas($("#saveEvaluate .temark1"),{
+            html2canvas($("#saveEvaluate"),{
                 allowTaint: true,
                 useCORS:true,
                 taintTest: false,
+                height:$("#saveEvaluate").outerHeight(),
                 onrendered:function (canvas01) {
                     swal({
                         title: "提示",
@@ -634,6 +635,7 @@ function savePic() {
                         showConfirmButton: false
                     }); 
                     recordSaveOrUpdate_port(canvas01.toDataURL('png'));
+                    $("#saveEvaluate").empty();
                 }
             });
         }else{
