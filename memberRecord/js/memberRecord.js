@@ -362,7 +362,13 @@ function savePic() {
 
     // 预览列表 添加图片
     $("#recordOk").on("dblclick",".recordImg",function () {
-        if($("#canvas").hasClass("active")){
+        $("#evaluate").removeClass("active");
+        $("#canvas").addClass("active");
+        $("#modal-dialog-img").modal("show");
+        var src=httpUrl.path_img+$(this).attr("data-pic")+"&Thumbnail=0";
+        $("#carousel_img").empty().append("<img src="+src+" data-curpic="+$(this).attr("data-pic")+" />");
+        
+        /*if($("#canvas").hasClass("active")){
             var imgUrl=httpUrl.path_img+$(this).attr("data-pic");
             fabric.Image.fromURL(imgUrl,function(Img) {
                 var w01=$("#canvasMain").width();
@@ -378,7 +384,7 @@ function savePic() {
                 canvas.add(Img);
                 // canvas.moveTo(Img,8);
             });
-        };
+        };*/
         
 	});
 
@@ -627,6 +633,7 @@ function savePic() {
                 useCORS:true,
                 taintTest: false,
                 height:$("#saveEvaluate").outerHeight(),
+                width:$("#saveEvaluate").outerWidth(),
                 onrendered:function (canvas01) {
                     swal({
                         title: "提示",

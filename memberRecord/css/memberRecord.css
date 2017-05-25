@@ -1562,3 +1562,25 @@ span.line01{
 	cursor: pointer;
 	border-radius: 3px;
 }
+#modal-dialog-img >.modal-dialog {
+	width: 600px;
+	margin: 100px auto;
+}
+#carousel_img >img{
+	width: 100%;
+}
+.closeBtn01 {
+	display: inline-block;
+	cursor: pointer;
+	width: 80px;
+	height: 80px;
+	background: url(../images/closeBtn01.png) no-repeat center center;
+	position: absolute;
+	top: 30px;
+	right: 50px;
+	z-index: -1;
+	border-radius: 10px;
+}
+.closeBtn01:hover {
+	background-color: rgba(0,0,0,0.2);
+}

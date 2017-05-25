@@ -335,7 +335,7 @@ function getRootFileUUID_callback(res) {
         };
         $(".ysjh-yzjh-navgition li").attr('data-fileuuid',uid.rootUUID);  //面包屑
         initAjax(httpUrl.getAllChildInfo,param,getAllChildInfo_callback,uid); 
-    }else if(res.code == 403){
+    }else if(res.code == 503){
         $.toast({
             heading: "提示",
             text: res.info+",稍候将刷新以解决此故障",
